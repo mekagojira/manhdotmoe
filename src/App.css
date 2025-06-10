@@ -683,22 +683,28 @@ body {
   align-items: center;
   gap: 15px;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 16px 64px rgba(31, 38, 135, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  transform: translateZ(0);
 }
 
 .glass-input-container:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) translateZ(0);
   background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 48px rgba(31, 38, 135, 0.45),
+    0 24px 80px rgba(31, 38, 135, 0.25), 0 4px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 }
 
 .glass-input-container:focus-within {
   border-color: rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5),
-    0 0 0 3px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    0 20px 72px rgba(31, 38, 135, 0.3), 0 0 0 3px rgba(255, 255, 255, 0.15),
+    0 3px 12px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06);
 }
 
 .input-icon {
@@ -734,14 +740,17 @@ body {
   -webkit-backdrop-filter: blur(40px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 4px 16px rgba(31, 38, 135, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 8px 32px rgba(31, 38, 135, 0.15), 0 1px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
 }
 
 .input-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px) translateZ(0);
   background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 6px 20px rgba(31, 38, 135, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(31, 38, 135, 0.4),
+    0 12px 48px rgba(31, 38, 135, 0.2), 0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 }
 
 /* Buttons */
@@ -757,7 +766,9 @@ body {
   -webkit-backdrop-filter: blur(40px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 16px 64px rgba(31, 38, 135, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
 }
 
 .btn.primary {
@@ -767,10 +778,11 @@ body {
 }
 
 .btn.primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) translateZ(0);
   background: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 48px rgba(31, 38, 135, 0.5),
+    0 24px 80px rgba(31, 38, 135, 0.25), 0 4px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 }
 
 .btn.secondary {
@@ -781,7 +793,8 @@ body {
 
 .btn.secondary:hover {
   background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px) translateZ(0);
+  box-shadow: 0 16px 48px rgba(31, 38, 135, 0.4),
+    0 24px 80px rgba(31, 38, 135, 0.2), 0 4px 16px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 }

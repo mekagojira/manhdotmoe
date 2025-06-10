@@ -44,7 +44,7 @@ function App() {
                 </div>
                 <div className="stat-item">
                   <span className="stat-number">1M+</span>
-                  <span className="stat-label">Users Served</span>
+                  <span className="stat-label">CCU served</span>
                 </div>
               </div>
             </div>

@@ -1,0 +1,167 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import contact from "../content/contact.json";
+
+type SocialItem = {
+  name: string;
+  url: string;
+  icon?: string;
+};
+
+const socials = (contact.socials ?? []) as SocialItem[];
+---
+
+<section id="contact" class="section">
+  <div class="container">
+    <SectionHeading title="Contact" subtitle="Open to meaningful engineering work." />
+
+    <div class="contact-panel animate-on-scroll">
+      <h3>{contact.headline}</h3>
+      <p>{contact.description}</p>
+
+      <div class="contact-actions">
+        <a href={`mailto:${contact.email}`} class="contact-btn primary">
+          Email me
+        </a>
+        <a href={`tel:${contact.phone.replace(/\s+/g, "")}`} class="contact-btn">
+          {contact.phone}
+        </a>
+      </div>
+
+      {
+        socials.length > 0 && (
+          <div class="social-row" aria-label="Social links">
+            {socials.map((social) => (
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+              >
+                {social.name}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--section-gap) 2rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .contact-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    padding: 1.75rem;
+  }
+
+  .contact-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(137, 180, 250, 0.03) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    pointer-events: none;
+  }
+
+  .contact-panel:hover::before {
+    animation: shimmer 0.9s ease forwards;
+  }
+
+  @keyframes shimmer {
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  .contact-panel h3 {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    margin-bottom: 0.6rem;
+    color: var(--ctp-text);
+  }
+
+  .contact-panel p {
+    color: var(--ctp-subtext0);
+    line-height: 1.75;
+    margin-bottom: 1.2rem;
+    max-width: 68ch;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.68rem 1rem;
+    border-radius: 11px;
+    border: 1px solid var(--surface-border);
+    color: var(--ctp-text);
+    background: var(--surface-card-strong);
+    font-size: 0.88rem;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .contact-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--ctp-surface1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .contact-btn.primary {
+    border-color: var(--accent-mauve-border);
+    background: var(--accent-mauve-bg);
+    color: var(--ctp-mauve);
+  }
+
+  .social-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid var(--surface-border);
+    color: var(--ctp-subtext1);
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    background: var(--surface-card-strong);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .social-link:hover {
+    border-color: var(--ctp-surface1);
+    transform: translateY(-1px);
+  }
+</style>

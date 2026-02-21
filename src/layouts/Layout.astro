@@ -88,6 +88,9 @@ const {
                 <a href="#contact" data-section="contact">
                   Contact
                 </a>
+                <a href="/discover" data-section="contact">
+                  maxOS
+                </a>
               </>
             ) : (
               <a href="/" data-section="home">
@@ -673,13 +676,16 @@ const {
           padding: 0.48rem 0.6rem;
           border-radius: 18px;
           border: 1px solid var(--surface-border);
-          background: color-mix(in srgb, var(--ctp-mantle) 92%, var(--ctp-base));
+          background: color-mix(
+            in srgb,
+            var(--ctp-mantle) 92%,
+            var(--ctp-base)
+          );
           box-shadow: var(--surface-shadow);
-          backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
-            brightness(var(--glass-brightness));
+          backdrop-filter: blur(var(--glass-blur))
+            saturate(var(--glass-saturate)) brightness(var(--glass-brightness));
           -webkit-backdrop-filter: blur(var(--glass-blur))
-            saturate(var(--glass-saturate))
-            brightness(var(--glass-brightness));
+            saturate(var(--glass-saturate)) brightness(var(--glass-brightness));
         }
 
         .nav-logo {
@@ -700,14 +706,16 @@ const {
           padding: 0.5rem;
           border-radius: 14px;
           border: 1px solid var(--surface-border);
-          background: color-mix(in srgb, var(--ctp-mantle) 94%, var(--ctp-base));
+          background: color-mix(
+            in srgb,
+            var(--ctp-mantle) 94%,
+            var(--ctp-base)
+          );
           box-shadow: var(--surface-shadow);
           backdrop-filter: blur(calc(var(--glass-blur) * 0.95))
-            saturate(var(--glass-saturate))
-            brightness(var(--glass-brightness));
+            saturate(var(--glass-saturate)) brightness(var(--glass-brightness));
           -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.95))
-            saturate(var(--glass-saturate))
-            brightness(var(--glass-brightness));
+            saturate(var(--glass-saturate)) brightness(var(--glass-brightness));
           opacity: 0;
           visibility: hidden;
           transform: translateY(-8px) scale(0.97);

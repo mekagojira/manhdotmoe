@@ -1,0 +1,170 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+import links from "../content/links.json";
+
+type LinkItem = {
+  title: string;
+  url: string;
+  description: string;
+  icon?: string;
+};
+
+const items = links as LinkItem[];
+
+const iconMap: Record<string, string> = {
+  "message-circle": "mail",
+  pen: "mail",
+  book: "layout",
+};
+
+const resolveIcon = (icon?: string) => iconMap[icon ?? ""] ?? icon ?? "code";
+---
+
+<section id="links" class="section">
+  <div class="container">
+    <SectionHeading
+      title="Links"
+      subtitle="Find me across platforms, projects, and writing."
+    />
+
+    <div class="links-grid">
+      {
+        items.map((item, i) => {
+          const isExternal = /^https?:\/\//.test(item.url);
+          return (
+            <a
+              href={item.url}
+              class="link-card animate-on-scroll"
+              style={`transition-delay: ${i * 0.08}s`}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+            >
+              <div class="link-icon" aria-hidden="true">
+                <Icon name={resolveIcon(item.icon)} size={16} />
+              </div>
+              <div class="link-content">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+              <span class="link-arrow" aria-hidden="true">↗</span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--section-gap) 2rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .link-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 1.1rem;
+    border-radius: 14px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .link-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(203, 166, 247, 0.03) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    pointer-events: none;
+  }
+
+  .link-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--ctp-surface1);
+    box-shadow: var(--surface-shadow);
+  }
+
+  .link-card:hover::before {
+    animation: shimmer 0.8s ease forwards;
+  }
+
+  @keyframes shimmer {
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  .link-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--accent-mauve-border);
+    background: var(--accent-mauve-bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ctp-mauve);
+    transition: transform 0.25s ease;
+  }
+
+  .link-card:hover .link-icon {
+    transform: scale(1.05);
+  }
+
+  .link-content h3 {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--ctp-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .link-content p {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--ctp-subtext0);
+  }
+
+  .link-arrow {
+    margin-left: auto;
+    color: var(--ctp-overlay1);
+    font-size: 0.9rem;
+    line-height: 1;
+    transform: translateY(1px);
+    transition: transform 0.2s ease;
+  }
+
+  .link-card:hover .link-arrow {
+    transform: translate(1px, 0);
+  }
+
+  @media (max-width: 640px) {
+    .links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

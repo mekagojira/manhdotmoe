@@ -1,0 +1,104 @@
+---
+import Icon from "./Icon.astro";
+import { getTechIcon } from "../utils/tech-icons";
+import {
+  siApachekafka,
+  siArgo,
+  siAstro,
+  siCss,
+  siDocker,
+  siDotnet,
+  siElastic,
+  siElasticsearch,
+  siExpress,
+  siFastify,
+  siGin,
+  siGit,
+  siGo,
+  siGrafana,
+  siHelm,
+  siHtml5,
+  siJaeger,
+  siKubernetes,
+  siLinux,
+  siMongodb,
+  siMysql,
+  siNestjs,
+  siNextdotjs,
+  siNginx,
+  siNodedotjs,
+  siOpentelemetry,
+  siPostgresql,
+  siPrometheus,
+  siReact,
+  siRedis,
+  siRedhatopenshift,
+  siTerraform,
+  siTypescript,
+} from "simple-icons";
+
+interface Props {
+  label: string;
+  size?: number;
+}
+
+const { label, size = 14 } = Astro.props;
+const key = label.trim().toLowerCase();
+
+const brandRules: Array<[RegExp, { path: string; hex: string }]> = [
+  [/\btypescript\b/, siTypescript],
+  [/\bnode\.?js\b/, siNodedotjs],
+  [/\bgolang\b|\bgo\b/, siGo],
+  [/\.net|asp\.net/, siDotnet],
+  [/react/, siReact],
+  [/next\.js/, siNextdotjs],
+  [/\bastro\b/, siAstro],
+  [/html/, siHtml5],
+  [/css/, siCss],
+  [/nestjs/, siNestjs],
+  [/express/, siExpress],
+  [/fastify/, siFastify],
+  [/\bgin\b/, siGin],
+  [/socket\.io|socket|websocket/, siNodedotjs],
+  [/\bdocker\b/, siDocker],
+  [/\bkubernetes\b|\beks\b/, siKubernetes],
+  [/openshift|ocp/, siRedhatopenshift],
+  [/\bterraform\b/, siTerraform],
+  [/argocd|gitops/, siArgo],
+  [/\bhelm\b/, siHelm],
+  [/\bnginx\b|ingress/, siNginx],
+  [/prometheus/, siPrometheus],
+  [/grafana/, siGrafana],
+  [/jaeger|tracing/, siJaeger],
+  [/opentelemetry/, siOpentelemetry],
+  [/elk|log aggregation/, siElastic],
+  [/\bmysql\b|rds/, siMysql],
+  [/postgres/, siPostgresql],
+  [/redis|elasticache/, siRedis],
+  [/mongodb|mongo/, siMongodb],
+  [/\bkafka\b/, siApachekafka],
+  [/elasticsearch/, siElasticsearch],
+  [/\bgit\b/, siGit],
+  [/gnu\/linux|linux/, siLinux],
+];
+
+const brand = brandRules.find(([pattern]) => pattern.test(key))?.[1];
+---
+
+{
+  brand ? (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      class="brand-icon"
+      style="color: currentColor"
+      aria-hidden="true"
+    >
+      <path d={brand.path} fill="currentColor"></path>
+    </svg>
+  ) : (
+    <Icon name={getTechIcon(label)} size={size} />
+  )
+}

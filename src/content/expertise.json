@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Solution Architecture",
+    "icon": "code",
+    "color": "blue",
+    "description": "Translate product and business goals into architecture decisions, balancing speed, cost, and long-term maintainability.",
+    "tags": ["Architecture Roadmaps", "Trade-off Analysis", "Delivery Alignment", "Scalable Design"]
+  },
+  {
+    "title": "Distributed Systems Strategy",
+    "icon": "boxes",
+    "color": "mauve",
+    "description": "Design platform-wide patterns for reliability and scale across microservices, event flows, and service boundaries.",
+    "tags": ["Microservices", "Event-Driven", "DDD", "Service Boundaries"]
+  },
+  {
+    "title": "Platform & Delivery Architecture",
+    "icon": "cloud",
+    "color": "teal",
+    "description": "Shape platform foundations and delivery standards that enable secure, repeatable, and high-confidence releases.",
+    "tags": ["Kubernetes", "OpenShift", "CI/CD", "GitOps", "Platform Standards"]
+  },
+  {
+    "title": "Monitoring & Observability",
+    "icon": "target",
+    "color": "peach",
+    "description": "Establish observability as a decision system, using telemetry and feedback loops to prioritize bottlenecks and drive continuous performance improvements.",
+    "tags": ["SLI/SLO", "Prometheus", "Grafana", "Tracing", "OpenTelemetry"]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "value": "7+",
+    "label": "Years Building Software",
+    "detail": "Hands-on across product and platform"
+  },
+  {
+    "value": "E2E",
+    "label": "Ownership Mindset",
+    "detail": "From architecture to operations"
+  },
+  {
+    "value": "DevOps",
+    "label": "Production Focus",
+    "detail": "CI/CD, Kubernetes, observability"
+  },
+  {
+    "value": "20+",
+    "label": "Services Operated",
+    "detail": "Real-world systems in production"
+  }
+]

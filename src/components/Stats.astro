@@ -1,0 +1,142 @@
+---
+import stats from '../content/stats.json';
+---
+
+<section class="stats-section">
+  <div class="stats-container">
+    <div class="stats-grid">
+      {stats.map((stat, i) => (
+        <div class="stat-card animate-on-scroll" style={`transition-delay: ${i * 0.1}s`}>
+          <div class="stat-glow"></div>
+          <span class="stat-value" data-value={stat.value}>{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+          <span class="stat-detail">{stat.detail}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-section {
+    padding: 3rem 2rem 4rem;
+    position: relative;
+  }
+
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ctp-surface1), transparent);
+  }
+
+  .stats-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ctp-surface1), transparent);
+  }
+
+  .stats-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    position: relative;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+    background: rgba(49, 50, 68, 0.34);
+    border: 1px solid var(--ctp-surface0);
+    overflow: hidden;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .stat-card:hover {
+    border-color: var(--ctp-surface1);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .stat-glow {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(203, 166, 247, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .stat-card:hover .stat-glow {
+    opacity: 1;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.35rem;
+    position: relative;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ctp-text);
+    margin-bottom: 0.25rem;
+    position: relative;
+  }
+
+  .stat-detail {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--ctp-overlay1);
+    font-family: var(--font-mono);
+    position: relative;
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat-value {
+      font-size: 1.7rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+    }
+
+    .stat-detail {
+      font-size: 0.68rem;
+    }
+  }
+</style>

@@ -1,0 +1,40 @@
+{
+  "subtitle": "Hands-on DevOps for reliable systems, fast releases, and clear production visibility.",
+  "summary": "I run production platforms end-to-end: Linux operations, Kubernetes/OpenShift clusters, CI/CD automation, and observability with monitoring + tracing.",
+  "pillars": [
+    {
+      "title": "Platform Operations",
+      "icon": "server",
+      "description": "Operate Linux-based production systems with strong reliability and incident discipline.",
+      "items": ["GNU/Linux", "System hardening", "Runbooks", "Incident response"]
+    },
+    {
+      "title": "Container Orchestration",
+      "icon": "boxes",
+      "description": "Deploy, scale, and troubleshoot container workloads across Kubernetes and OpenShift.",
+      "items": ["Kubernetes", "OpenShift (OCP)", "Helm", "Autoscaling"]
+    },
+    {
+      "title": "Delivery Automation",
+      "icon": "arrows",
+      "description": "Build CI/CD workflows that speed delivery while keeping release quality high.",
+      "items": ["CI/CD pipelines", "GitOps workflows", "Release strategy", "Quality gates"]
+    },
+    {
+      "title": "Observability",
+      "icon": "network",
+      "description": "Implement metrics, logs, and traces to reduce MTTR and improve system confidence.",
+      "items": ["Monitoring", "Tracing", "Alerting", "Performance insights"]
+    }
+  ],
+  "toolchain": [
+    "Docker",
+    "Kubernetes",
+    "OpenShift",
+    "CI/CD",
+    "GitOps",
+    "Prometheus",
+    "Grafana",
+    "OpenTelemetry"
+  ]
+}

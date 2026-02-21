@@ -1,0 +1,201 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import projects from '../content/projects.json';
+import { getTechIcon } from '../utils/tech-icons';
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <SectionHeading
+      title="Featured Work"
+      subtitle="High-impact projects I've architected and delivered."
+    />
+
+    <div class="projects-grid">
+      {projects.map((project, i) => (
+        <div class="project-card animate-on-scroll" style={`transition-delay: ${i * 0.12}s`}>
+          <div class="project-shimmer"></div>
+
+          <div class="project-top">
+            <div class="project-icon">
+              <Icon name={project.icon} size={20} />
+            </div>
+            <span class="project-role">{project.role}</span>
+          </div>
+
+          <h3 class="project-name">{project.name}</h3>
+          <p class="project-desc">{project.description}</p>
+
+          <div class="project-impact">
+            {project.impact.map((item) => (
+              <span class="impact-badge">{item}</span>
+            ))}
+          </div>
+
+          <div class="project-tags">
+            {project.tags.map((tag) => (
+              <span class="project-tag">
+                <Icon name={getTechIcon(tag)} size={11} />
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--section-gap) 2rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    background: rgba(49, 50, 68, 0.25);
+    border: 1px solid var(--ctp-surface0);
+    border-radius: 16px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .project-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(148, 226, 213, 0.04) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+  }
+
+  .project-card:hover .project-shimmer {
+    animation: shimmer 0.8s ease forwards;
+  }
+
+  @keyframes shimmer {
+    to { transform: translateX(100%); }
+  }
+
+  .project-card:hover {
+    border-color: var(--ctp-surface1);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  }
+
+  .project-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .project-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(148, 226, 213, 0.08);
+    border: 1px solid rgba(148, 226, 213, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ctp-teal);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .project-card:hover .project-icon {
+    background: rgba(148, 226, 213, 0.14);
+    transform: scale(1.05);
+  }
+
+  .project-role {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ctp-overlay1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(49, 50, 68, 0.5);
+    border: 1px solid var(--ctp-surface0);
+  }
+
+  .project-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ctp-text);
+    margin-bottom: 0.6rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--ctp-subtext0);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  .project-impact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .impact-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(166, 227, 161, 0.08);
+    color: var(--ctp-green);
+    border: 1px solid rgba(166, 227, 161, 0.15);
+    font-weight: 500;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--ctp-surface0);
+  }
+
+  .project-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(137, 180, 250, 0.06);
+    color: var(--ctp-blue);
+    border: 1px solid rgba(137, 180, 250, 0.1);
+  }
+
+  .project-tag :global(.icon) {
+    width: 11px;
+    height: 11px;
+    opacity: 0.8;
+    flex-shrink: 0;
+  }
+</style>

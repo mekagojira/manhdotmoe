@@ -1,0 +1,76 @@
+{
+  "subtitle": "Designing distributed systems that remain stable under pressure and evolve with business growth.",
+  "summary": "I design service-oriented platforms with clear boundaries, secure-by-design controls, and performance-first architecture. I also guide teams to implement the architecture consistently, so systems stay reliable, scalable, and easy to evolve.",
+  "domains": [
+    {
+      "title": "Microservices Design",
+      "icon": "boxes",
+      "description": "Define service boundaries around domain ownership to reduce coupling and improve team autonomy.",
+      "points": [
+        "Domain-driven service boundaries",
+        "API contracts and versioning strategy",
+        "Operational ownership per service"
+      ]
+    },
+    {
+      "title": "CQRS & Event-Driven",
+      "icon": "split",
+      "description": "Use command/query separation and asynchronous events for scalable write/read flows.",
+      "points": [
+        "Command and query model separation",
+        "Event choreography for cross-service workflows",
+        "Reliable messaging and eventual consistency"
+      ]
+    },
+    {
+      "title": "Distributed Reliability",
+      "icon": "network",
+      "description": "Engineer resilient communication patterns that tolerate failure across distributed components.",
+      "points": [
+        "Timeout, retry, and circuit-breaker patterns",
+        "Idempotency and failure recovery flows",
+        "Observability-driven incident reduction"
+      ]
+    },
+    {
+      "title": "High-Load Performance",
+      "icon": "zap",
+      "description": "Continuously identify bottlenecks and optimize throughput, latency, and resource efficiency.",
+      "points": [
+        "Capacity planning and load profiling",
+        "Hot-path optimization and caching strategy",
+        "P99 latency and throughput tuning"
+      ]
+    },
+    {
+      "title": "Secure System Architecture",
+      "icon": "shield",
+      "description": "Embed security controls into architecture decisions from day one, not as a late-stage add-on.",
+      "points": [
+        "Defense-in-depth across services and network layers",
+        "Identity, access control, and secret management",
+        "Security reviews and risk-based design decisions"
+      ]
+    },
+    {
+      "title": "Architecture Leadership",
+      "icon": "user",
+      "description": "Lead teams to execute architecture with shared standards, clear ownership, and practical governance.",
+      "points": [
+        "Define engineering guidelines and architecture standards",
+        "Mentor teammates through design reviews and trade-offs",
+        "Align implementation plans with architecture roadmap"
+      ]
+    }
+  ],
+  "patterns": [
+    { "name": "Microservices", "icon": "boxes" },
+    { "name": "CQRS", "icon": "split" },
+    { "name": "Event-Driven", "icon": "zap" },
+    { "name": "gRPC / REST", "icon": "arrows" },
+    { "name": "Horizontal Scaling", "icon": "scale" },
+    { "name": "Resilience Patterns", "icon": "shield" },
+    { "name": "Secure by Design", "icon": "shield" },
+    { "name": "Architecture Governance", "icon": "user" }
+  ]
+}

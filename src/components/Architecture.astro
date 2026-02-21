@@ -1,0 +1,177 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+import architecture from "../content/architecture.json";
+---
+
+<section id="architecture" class="section">
+  <div class="container">
+    <SectionHeading title="Systems Architecture" subtitle={architecture.subtitle} />
+
+    <div class="arch-intro animate-on-scroll">
+      <p>{architecture.summary}</p>
+    </div>
+
+    <div class="domain-grid">
+      {architecture.domains.map((domain, i) => (
+        <article class="domain-card animate-on-scroll" style={`transition-delay: ${i * 0.08}s`}>
+          <div class="domain-head">
+            <div class="domain-icon">
+              <Icon name={domain.icon} size={18} />
+            </div>
+            <h3>{domain.title}</h3>
+          </div>
+          <p class="domain-desc">{domain.description}</p>
+          <ul class="domain-points">
+            {domain.points.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="pattern-strip animate-on-scroll" style="transition-delay: 0.2s">
+      {architecture.patterns.map((pattern) => (
+        <span class="pattern-tag">
+          <Icon name={pattern.icon} size={12} />
+          {pattern.name}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--section-gap) 2rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .arch-intro {
+    margin-bottom: 1.25rem;
+    padding: 1.15rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--ctp-surface0);
+    background: rgba(49, 50, 68, 0.24);
+  }
+
+  .arch-intro p {
+    color: var(--ctp-subtext0);
+    line-height: 1.75;
+  }
+
+  .domain-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .domain-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+    border: 1px solid var(--ctp-surface0);
+    background: rgba(49, 50, 68, 0.26);
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .domain-card:hover {
+    border-color: var(--ctp-surface1);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .domain-head {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .domain-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(203, 166, 247, 0.16);
+    background: rgba(203, 166, 247, 0.08);
+    color: var(--ctp-mauve);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .domain-head h3 {
+    font-size: 1rem;
+    color: var(--ctp-text);
+    font-weight: 700;
+  }
+
+  .domain-desc {
+    color: var(--ctp-subtext0);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin-bottom: 0.8rem;
+  }
+
+  .domain-points {
+    list-style: none;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .domain-points li {
+    position: relative;
+    padding-left: 1rem;
+    color: var(--ctp-subtext1);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .domain-points li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ctp-mauve);
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+  }
+
+  .pattern-strip {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pattern-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--ctp-lavender);
+    border: 1px solid rgba(180, 190, 254, 0.2);
+    background: rgba(180, 190, 254, 0.08);
+    border-radius: 8px;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .pattern-tag :global(.icon) {
+    width: 12px;
+    height: 12px;
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .domain-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

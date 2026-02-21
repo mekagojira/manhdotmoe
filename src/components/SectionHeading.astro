@@ -2,13 +2,13 @@
 interface Props {
   title: string;
   subtitle?: string;
-  align?: 'left' | 'center';
+  align?: "left" | "center";
 }
 
-const { title, subtitle, align = 'left' } = Astro.props;
+const { title, subtitle, align = "left" } = Astro.props;
 ---
 
-<div class:list={['section-heading animate-on-scroll', `align-${align}`]}>
+<div class:list={["section-heading animate-on-scroll", `align-${align}`]}>
   <h2 class="section-title">
     <span class="title-accent">//</span>
     <span class="title-text">{title}</span>

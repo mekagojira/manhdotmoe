@@ -22,7 +22,12 @@ import intro from "../content/intro.json";
     </h1>
 
     <p class="hero-title stagger" style="--i: 2">
-      <span class="typewriter" id="typewriter" data-titles={JSON.stringify(intro.titles)}></span><span class="typewriter-cursor">|</span>
+      <span
+        class="typewriter"
+        id="typewriter"
+        data-titles={JSON.stringify(intro.titles)}></span><span
+        class="typewriter-cursor">|</span
+      >
     </p>
 
     <p class="hero-tagline stagger" style="--i: 3">{intro.tagline}</p>
@@ -104,9 +109,9 @@ import intro from "../content/intro.json";
   }
 
   // Typewriter effect
-  const tw = document.getElementById('typewriter');
+  const tw = document.getElementById("typewriter");
   if (tw) {
-    const titles: string[] = JSON.parse(tw.dataset.titles || '[]');
+    const titles: string[] = JSON.parse(tw.dataset.titles || "[]");
     let titleIdx = 0;
     let charIdx = 0;
     let deleting = false;
@@ -121,7 +126,10 @@ import intro from "../content/intro.json";
         tw!.textContent = current.slice(0, charIdx + 1);
         charIdx++;
         if (charIdx === current.length) {
-          setTimeout(() => { deleting = true; tick(); }, pauseAfterType);
+          setTimeout(() => {
+            deleting = true;
+            tick();
+          }, pauseAfterType);
           return;
         }
         setTimeout(tick, typeSpeed);
@@ -410,8 +418,13 @@ import intro from "../content/intro.json";
   }
 
   @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 
   .hero-tagline {
@@ -510,7 +523,6 @@ import intro from "../content/intro.json";
   .scroll-indicator {
     position: absolute;
     bottom: 2rem;
-    left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;

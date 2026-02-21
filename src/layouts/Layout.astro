@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import BrandIcon from "../components/BrandIcon.astro";
 
 interface Props {
   title?: string;
@@ -40,7 +41,16 @@ const {
     />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="loader-active">
+    <div class="page-loader" id="page-loader" aria-live="polite" role="status">
+      <div class="page-loader-card">
+        <div class="page-loader-icon" aria-hidden="true">
+          <BrandIcon label="Linux" size={34} />
+        </div>
+        <p class="page-loader-label">Booting portfolio...</p>
+      </div>
+    </div>
+
     <div class="noise-overlay"></div>
     <div class="cursor-glow" id="cursor-glow"></div>
 
@@ -96,6 +106,29 @@ const {
     </footer>
 
     <script>
+      // Initial loading screen
+      const pageLoader = document.getElementById("page-loader");
+      const hideLoader = () => {
+        if (!pageLoader || pageLoader.classList.contains("is-hidden")) return;
+        pageLoader.classList.add("is-hidden");
+        document.body.classList.remove("loader-active");
+        window.setTimeout(() => pageLoader.remove(), 450);
+      };
+
+      if (document.readyState === "complete") {
+        hideLoader();
+      } else {
+        window.addEventListener(
+          "load",
+          () => {
+            window.setTimeout(hideLoader, 220);
+          },
+          { once: true },
+        );
+        // Fallback in case load is delayed by third-party resources
+        window.setTimeout(hideLoader, 2600);
+      }
+
       const animTargets =
         ".animate-on-scroll, .animate-slide-left, .animate-slide-right, .animate-scale";
 
@@ -217,6 +250,74 @@ const {
     </script>
 
     <style>
+      .loader-active {
+        overflow: hidden;
+      }
+
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 10001;
+        display: grid;
+        place-items: center;
+        background: color-mix(in srgb, var(--ctp-base) 80%, transparent);
+        backdrop-filter: blur(12px) saturate(130%);
+        -webkit-backdrop-filter: blur(12px) saturate(130%);
+        transition:
+          opacity 0.35s ease,
+          visibility 0.35s ease;
+      }
+
+      .page-loader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .page-loader-card {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        padding: 0.7rem 1rem;
+        border-radius: 999px;
+        border: 1px solid var(--surface-border);
+        background: var(--surface-card-strong);
+        box-shadow: var(--surface-shadow);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+          brightness(var(--glass-brightness));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate))
+          brightness(var(--glass-brightness));
+      }
+
+      .page-loader-icon {
+        width: 2.3rem;
+        height: 2.3rem;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        color: var(--ctp-text);
+        border: 1px solid var(--accent-blue-border);
+        background: var(--accent-blue-bg);
+        animation: loaderPulse 1.2s ease-in-out infinite;
+      }
+
+      .page-loader-label {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        letter-spacing: 0.02em;
+        color: var(--ctp-subtext0);
+      }
+
+      @keyframes loaderPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
       .noise-overlay {
         position: fixed;
         inset: 0;
@@ -422,6 +523,12 @@ const {
         .theme-toggle {
           width: 2rem;
           height: 2rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .page-loader-icon {
+          animation: none;
         }
       }
     </style>

@@ -10,7 +10,7 @@
       "Engineered the platform for 120M CCU readiness with high availability, scalability, and operational resilience",
       "Owned DevOps/SysAdmin execution: infrastructure operations, CI/CD workflows, production hardening, and incident response",
       "Ensured compliance with strict ISO/TCVN standards and security requirements throughout design and delivery",
-      "Established fast CI/CD and continuous improvement loops with strong observability and release discipline"
+      "Built observability and data reliability with ELK, MongoDB, and ScyllaDB to support continuous optimization and stable operations"
     ],
     "technologies": [
       "TypeScript",
@@ -18,8 +18,11 @@
       "C#",
       ".NET",
       "Oracle",
+      "MongoDB",
+      "ScyllaDB",
       "Kafka",
       "OpenShift",
+      "ELK",
       "Prometheus",
       "Grafana"
     ]
@@ -34,7 +37,7 @@
       "Rebuilt Green Future's entire system from scratch in ~2 months with zero-downtime migration",
       "Designed and operated AWS infrastructure (EKS, EC2, RDS, Elasticache) with full CI/CD automation",
       "Implemented monitoring, alerting, and log aggregation for production reliability across services",
-      "Managed Kubernetes clusters, rolling deployments, and auto-scaling for traffic spikes"
+      "Implemented event-driven communication with NATS and used ScyllaDB/.NET services for high-throughput, low-latency workloads"
     ],
     "technologies": [
       "TypeScript",
@@ -45,6 +48,9 @@
       "EKS",
       "Docker",
       "CI/CD",
+      "NATS",
+      "ScyllaDB",
+      ".NET",
       "MySQL",
       "Redis"
     ]

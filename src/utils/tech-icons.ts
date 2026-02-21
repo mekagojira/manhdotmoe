@@ -1,7 +1,7 @@
 const TECH_ICON_RULES: Array<[RegExp, string]> = [
   [/\bnode\.?js\b/, "nodejs"],
   [/\bgolang\b|\bgo\b/, "golang"],
-  [/\bc#\b|\.net|asp\.net/, "csharp"],
+  [/\bc#\b|\.net|asp\.net|\bdotnet\b/, "csharp"],
 
   [/react|next\.js|astro|html|css/, "layout"],
   [/nestjs|express|fastify|gin|backend|node|api/, "server"],
@@ -11,8 +11,8 @@ const TECH_ICON_RULES: Array<[RegExp, string]> = [
   [/devops|ci\/cd|pipeline|git\b|github|gitlab/, "terminal"],
 
   [/prometheus|grafana|jaeger|tracing|monitor|alert|sla|observability|elk|log/, "target"],
-  [/mysql|postgres|oracle|redis|elasticache|mongodb|mongo|elasticsearch|rds|database/, "database"],
-  [/kafka|queue|broker|messaging/, "mail"],
+  [/mysql|postgres|oracle|redis|elasticache|mongodb|mongo|elasticsearch|rds|database|scylla/, "database"],
+  [/kafka|nats|queue|broker|messaging/, "mail"],
 ];
 
 export function getTechIcon(label: string): string {

@@ -1,36 +1,39 @@
 ---
-import SectionHeading from './SectionHeading.astro';
-import Icon from './Icon.astro';
-import expertise from '../content/expertise.json';
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+import expertise from "../content/expertise.json";
 
-const colorMap: Record<string, { bg: string; border: string; text: string; tagBg: string; tagBorder: string }> = {
+const colorMap: Record<
+  string,
+  { bg: string; border: string; text: string; tagBg: string; tagBorder: string }
+> = {
   blue: {
-    bg: 'rgba(137, 180, 250, 0.06)',
-    border: 'rgba(137, 180, 250, 0.15)',
-    text: 'var(--ctp-blue)',
-    tagBg: 'rgba(137, 180, 250, 0.06)',
-    tagBorder: 'rgba(137, 180, 250, 0.12)',
+    bg: "rgba(137, 180, 250, 0.06)",
+    border: "rgba(137, 180, 250, 0.15)",
+    text: "var(--ctp-blue)",
+    tagBg: "rgba(137, 180, 250, 0.06)",
+    tagBorder: "rgba(137, 180, 250, 0.12)",
   },
   mauve: {
-    bg: 'rgba(203, 166, 247, 0.06)',
-    border: 'rgba(203, 166, 247, 0.15)',
-    text: 'var(--ctp-mauve)',
-    tagBg: 'rgba(203, 166, 247, 0.06)',
-    tagBorder: 'rgba(203, 166, 247, 0.12)',
+    bg: "rgba(203, 166, 247, 0.06)",
+    border: "rgba(203, 166, 247, 0.15)",
+    text: "var(--ctp-mauve)",
+    tagBg: "rgba(203, 166, 247, 0.06)",
+    tagBorder: "rgba(203, 166, 247, 0.12)",
   },
   teal: {
-    bg: 'rgba(148, 226, 213, 0.06)',
-    border: 'rgba(148, 226, 213, 0.15)',
-    text: 'var(--ctp-teal)',
-    tagBg: 'rgba(148, 226, 213, 0.06)',
-    tagBorder: 'rgba(148, 226, 213, 0.12)',
+    bg: "rgba(148, 226, 213, 0.06)",
+    border: "rgba(148, 226, 213, 0.15)",
+    text: "var(--ctp-teal)",
+    tagBg: "rgba(148, 226, 213, 0.06)",
+    tagBorder: "rgba(148, 226, 213, 0.12)",
   },
   peach: {
-    bg: 'rgba(250, 179, 135, 0.06)',
-    border: 'rgba(250, 179, 135, 0.15)',
-    text: 'var(--ctp-peach)',
-    tagBg: 'rgba(250, 179, 135, 0.06)',
-    tagBorder: 'rgba(250, 179, 135, 0.12)',
+    bg: "rgba(250, 179, 135, 0.06)",
+    border: "rgba(250, 179, 135, 0.15)",
+    text: "var(--ctp-peach)",
+    tagBg: "rgba(250, 179, 135, 0.06)",
+    tagBorder: "rgba(250, 179, 135, 0.12)",
   },
 };
 ---
@@ -39,34 +42,50 @@ const colorMap: Record<string, { bg: string; border: string; text: string; tagBg
   <div class="container">
     <SectionHeading
       title="What I Do"
-      subtitle="Core areas of expertise — from writing code to keeping it running in production."
+      subtitle="Core areas of expertise — from designing architecture to writing code and keeping it running in production."
     />
 
     <div class="expertise-grid">
-      {expertise.map((item, i) => {
-        const c = colorMap[item.color] || colorMap.blue;
-        return (
-          <div class="expertise-card animate-on-scroll" style={`transition-delay: ${i * 0.1}s`}>
-            <div class="card-shimmer"></div>
-            <div class="card-accent" style={`background: ${c.bg}; border-color: ${c.border}`}></div>
+      {
+        expertise.map((item, i) => {
+          const c = colorMap[item.color] || colorMap.blue;
+          return (
+            <div
+              class="expertise-card animate-on-scroll"
+              style={`transition-delay: ${i * 0.1}s`}
+            >
+              <div class="card-shimmer" />
+              <div
+                class="card-accent"
+                style={`background: ${c.bg}; border-color: ${c.border}`}
+              />
 
-            <div class="card-icon" style={`background: ${c.bg}; border-color: ${c.border}; color: ${c.text}`}>
-              <Icon name={item.icon} size={22} />
+              <div
+                class="card-icon"
+                style={`background: ${c.bg}; border-color: ${c.border}; color: ${c.text}`}
+              >
+                <Icon name={item.icon} size={22} />
+              </div>
+
+              <h3 class="card-title" style={`color: ${c.text}`}>
+                {item.title}
+              </h3>
+              <p class="card-desc">{item.description}</p>
+
+              <div class="card-tags">
+                {item.tags.map((tag) => (
+                  <span
+                    class="tag"
+                    style={`background: ${c.tagBg}; border-color: ${c.tagBorder}; color: ${c.text}`}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-
-            <h3 class="card-title" style={`color: ${c.text}`}>{item.title}</h3>
-            <p class="card-desc">{item.description}</p>
-
-            <div class="card-tags">
-              {item.tags.map((tag) => (
-                <span class="tag" style={`background: ${c.tagBg}; border-color: ${c.tagBorder}; color: ${c.text}`}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        );
-      })}
+          );
+        })
+      }
     </div>
   </div>
 </section>
@@ -94,7 +113,10 @@ const colorMap: Record<string, { bg: string; border: string; text: string; tagBg
     background: rgba(49, 50, 68, 0.25);
     border: 1px solid var(--ctp-surface0);
     overflow: hidden;
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .expertise-card:hover {
@@ -120,7 +142,9 @@ const colorMap: Record<string, { bg: string; border: string; text: string; tagBg
   }
 
   @keyframes shimmer {
-    to { transform: translateX(100%); }
+    to {
+      transform: translateX(100%);
+    }
   }
 
   .card-accent {
@@ -148,7 +172,9 @@ const colorMap: Record<string, { bg: string; border: string; text: string; tagBg
     align-items: center;
     justify-content: center;
     margin-bottom: 1.25rem;
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      background 0.3s ease;
   }
 
   .expertise-card:hover .card-icon {

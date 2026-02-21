@@ -1,8 +1,8 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
 import experiences from '../content/experiences.json';
-import { getTechIcon } from '../utils/tech-icons';
 ---
 
 <section id="experience" class="section">
@@ -58,7 +58,7 @@ import { getTechIcon } from '../utils/tech-icons';
             <div class="card-tech">
               {exp.technologies.map((tech) => (
                 <span class="tech-tag">
-                  <Icon name={getTechIcon(tech)} size={12} />
+                  <BrandIcon label={tech} size={12} />
                   {tech}
                 </span>
               ))}
@@ -290,7 +290,8 @@ import { getTechIcon } from '../utils/tech-icons';
     border: 1px solid rgba(137, 180, 250, 0.15);
   }
 
-  .tech-tag :global(.icon) {
+  .tech-tag :global(.icon),
+  .tech-tag :global(.brand-icon) {
     width: 12px;
     height: 12px;
     opacity: 0.8;

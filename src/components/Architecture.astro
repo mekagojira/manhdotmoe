@@ -6,38 +6,48 @@ import architecture from "../content/architecture.json";
 
 <section id="architecture" class="section">
   <div class="container">
-    <SectionHeading title="Systems Architecture" subtitle={architecture.subtitle} />
+    <SectionHeading
+      title="Systems Architecture"
+      subtitle={architecture.subtitle}
+    />
 
     <div class="arch-intro animate-on-scroll">
       <p>{architecture.summary}</p>
     </div>
 
     <div class="domain-grid">
-      {architecture.domains.map((domain, i) => (
-        <article class="domain-card animate-on-scroll" style={`transition-delay: ${i * 0.08}s`}>
-          <div class="domain-head">
-            <div class="domain-icon">
-              <Icon name={domain.icon} size={18} />
+      {
+        architecture.domains.map((domain, i) => (
+          <article
+            class="domain-card animate-on-scroll"
+            style={`transition-delay: ${i * 0.08}s`}
+          >
+            <div class="domain-head">
+              <div class="domain-icon">
+                <Icon name={domain.icon} size={18} />
+              </div>
+              <h3>{domain.title}</h3>
             </div>
-            <h3>{domain.title}</h3>
-          </div>
-          <p class="domain-desc">{domain.description}</p>
-          <ul class="domain-points">
-            {domain.points.map((point) => (
-              <li>{point}</li>
-            ))}
-          </ul>
-        </article>
-      ))}
+            <p class="domain-desc">{domain.description}</p>
+            <ul class="domain-points">
+              {domain.points.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
     </div>
 
     <div class="pattern-strip animate-on-scroll" style="transition-delay: 0.2s">
-      {architecture.patterns.map((pattern) => (
-        <span class="pattern-tag">
-          <Icon name={pattern.icon} size={12} />
-          {pattern.name}
-        </span>
-      ))}
+      {
+        architecture.patterns.map((pattern) => (
+          <span class="pattern-tag">
+            <Icon name={pattern.icon} size={12} />
+            {pattern.name}
+          </span>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -56,12 +66,12 @@ import architecture from "../content/architecture.json";
     margin-bottom: 1.25rem;
     padding: 1.15rem 1.25rem;
     border-radius: 12px;
-    border: 1px solid var(--ctp-surface0);
-    background: rgba(49, 50, 68, 0.24);
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card-strong);
   }
 
   .arch-intro p {
-    color: var(--ctp-subtext0);
+    color: var(--ctp-subtext1);
     line-height: 1.75;
   }
 
@@ -74,15 +84,18 @@ import architecture from "../content/architecture.json";
   .domain-card {
     padding: 1.25rem;
     border-radius: 14px;
-    border: 1px solid var(--ctp-surface0);
-    background: rgba(49, 50, 68, 0.26);
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .domain-card:hover {
     border-color: var(--ctp-surface1);
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--surface-shadow);
   }
 
   .domain-head {
@@ -96,8 +109,8 @@ import architecture from "../content/architecture.json";
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    border: 1px solid rgba(203, 166, 247, 0.16);
-    background: rgba(203, 166, 247, 0.08);
+    border: 1px solid var(--accent-mauve-border);
+    background: var(--accent-mauve-bg);
     color: var(--ctp-mauve);
     display: flex;
     align-items: center;
@@ -112,7 +125,7 @@ import architecture from "../content/architecture.json";
   }
 
   .domain-desc {
-    color: var(--ctp-subtext0);
+    color: var(--ctp-subtext1);
     font-size: 0.88rem;
     line-height: 1.65;
     margin-bottom: 0.8rem;
@@ -155,9 +168,9 @@ import architecture from "../content/architecture.json";
     align-items: center;
     gap: 0.35rem;
     font-size: 0.78rem;
-    color: var(--ctp-lavender);
-    border: 1px solid rgba(180, 190, 254, 0.2);
-    background: rgba(180, 190, 254, 0.08);
+    color: var(--ctp-text);
+    border: 1px solid var(--accent-lavender-border);
+    background: var(--accent-lavender-bg);
     border-radius: 8px;
     padding: 0.2rem 0.6rem;
   }

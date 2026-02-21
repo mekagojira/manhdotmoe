@@ -32,6 +32,75 @@
 
   --max-width: 900px;
   --section-gap: 7rem;
+
+  --nav-scrolled-bg: rgba(17, 17, 27, 0.85);
+  --surface-card: rgba(49, 50, 68, 0.28);
+  --surface-card-strong: rgba(49, 50, 68, 0.42);
+  --surface-border: var(--ctp-surface1);
+  --surface-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  --glass-blur: 14px;
+  --glass-saturate: 140%;
+  --glass-brightness: 1;
+
+  --accent-mauve-bg: rgba(203, 166, 247, 0.1);
+  --accent-mauve-border: rgba(203, 166, 247, 0.22);
+  --accent-blue-bg: rgba(137, 180, 250, 0.1);
+  --accent-blue-border: rgba(137, 180, 250, 0.22);
+  --accent-teal-bg: rgba(148, 226, 213, 0.1);
+  --accent-teal-border: rgba(148, 226, 213, 0.22);
+  --accent-lavender-bg: rgba(180, 190, 254, 0.1);
+  --accent-lavender-border: rgba(180, 190, 254, 0.22);
+}
+
+:root[data-theme="light"] {
+  /* Catppuccin Latte */
+  --ctp-rosewater: #dc8a78;
+  --ctp-flamingo: #dd7878;
+  --ctp-pink: #ea76cb;
+  --ctp-mauve: #8839ef;
+  --ctp-red: #d20f39;
+  --ctp-maroon: #e64553;
+  --ctp-peach: #fe640b;
+  --ctp-yellow: #df8e1d;
+  --ctp-green: #40a02b;
+  --ctp-teal: #179299;
+  --ctp-sky: #04a5e5;
+  --ctp-sapphire: #209fb5;
+  --ctp-blue: #1e66f5;
+  --ctp-lavender: #7287fd;
+  --ctp-text: #2f3448;
+  --ctp-subtext1: #3f455d;
+  --ctp-subtext0: #515871;
+  --ctp-overlay2: #636a83;
+  --ctp-overlay1: #767d94;
+  --ctp-overlay0: #8a90a6;
+  --ctp-surface2: #acb0be;
+  --ctp-surface1: #b6bdcc;
+  --ctp-surface0: #d5dbe6;
+  --ctp-base: #f8f9fc;
+  --ctp-mantle: #eff2f8;
+  --ctp-crust: #e7ebf3;
+
+  --nav-scrolled-bg: rgba(236, 244, 255, 0.72);
+  --surface-card: rgba(236, 245, 255, 0.56);
+  --surface-card-strong: rgba(235, 245, 255, 0.7);
+  --surface-border: rgba(255, 255, 255, 0.62);
+  --surface-shadow:
+    0 20px 44px rgba(45, 62, 96, 0.14),
+    0 2px 8px rgba(52, 74, 114, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  --glass-blur: 20px;
+  --glass-saturate: 175%;
+  --glass-brightness: 1.08;
+
+  --accent-mauve-bg: rgba(136, 57, 239, 0.1);
+  --accent-mauve-border: rgba(136, 57, 239, 0.22);
+  --accent-blue-bg: rgba(30, 102, 245, 0.1);
+  --accent-blue-border: rgba(30, 102, 245, 0.22);
+  --accent-teal-bg: rgba(23, 146, 153, 0.1);
+  --accent-teal-border: rgba(23, 146, 153, 0.24);
+  --accent-lavender-bg: rgba(114, 135, 253, 0.1);
+  --accent-lavender-border: rgba(114, 135, 253, 0.24);
 }
 
 *,
@@ -54,6 +123,19 @@ body {
   color: var(--ctp-text);
   line-height: 1.7;
   overflow-x: hidden;
+}
+
+:root[data-theme="light"] body {
+  background-image: radial-gradient(
+    circle at top right,
+    rgba(114, 135, 253, 0.08),
+    transparent 42%
+  ),
+  radial-gradient(
+    circle at 8% 24%,
+    rgba(4, 165, 229, 0.05),
+    transparent 50%
+  );
 }
 
 ::selection {
@@ -221,4 +303,103 @@ img {
     opacity: 1;
     transform: none;
   }
+}
+
+/* Global glass surfaces (both dark and light themes) */
+:is(
+    .stat-card,
+    .pillar-card,
+    .expertise-card,
+    .primary-card,
+    .cat-card,
+    .timeline-card,
+    .detail-card,
+    .domain-card,
+    .project-card,
+    .arch-section,
+    .arch-intro,
+    .devops-hero,
+    .toolchain,
+    .hero-badge,
+    .btn-ghost,
+    .card-period
+  ) {
+  background: var(--surface-card) !important;
+  border-color: var(--surface-border) !important;
+  box-shadow: var(--surface-shadow);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+    brightness(var(--glass-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur))
+    saturate(var(--glass-saturate))
+    brightness(var(--glass-brightness));
+}
+
+:root[data-theme="light"] :is(
+    .pill,
+    .tool-tag,
+    .tag,
+    .arch-tag,
+    .cat-tag,
+    .tech-tag,
+    .pattern-tag,
+    .project-tag,
+    .card-period
+  ) {
+  color: var(--ctp-text) !important;
+}
+
+:root[data-theme="light"] :is(
+    .pill,
+    .tool-tag,
+    .tag,
+    .arch-tag,
+    .cat-tag,
+    .tech-tag,
+    .pattern-tag,
+    .project-tag
+  ) {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Light theme gets a stronger frosted look */
+:root[data-theme="light"] :is(
+    .stat-card,
+    .pillar-card,
+    .expertise-card,
+    .primary-card,
+    .cat-card,
+    .timeline-card,
+    .detail-card,
+    .domain-card,
+    .project-card,
+    .arch-section,
+    .arch-intro,
+    .devops-hero,
+    .toolchain,
+    .hero-badge,
+    .btn-ghost,
+    .card-period
+  ) {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.52),
+    rgba(225, 239, 255, 0.34)
+  ) !important;
+}
+
+:is(
+    .pill,
+    .tool-tag,
+    .tag,
+    .arch-tag,
+    .cat-tag,
+    .tech-tag,
+    .pattern-tag,
+    .project-tag
+  ) {
+  backdrop-filter: blur(calc(var(--glass-blur) * 0.65))
+    saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.65))
+    saturate(var(--glass-saturate));
 }

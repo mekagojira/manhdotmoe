@@ -14,36 +14,43 @@ import { getTechIcon } from "../utils/tech-icons";
     </div>
 
     <div class="pillar-grid">
-      {devops.pillars.map((pillar, i) => (
-        <article class="pillar-card animate-on-scroll" style={`transition-delay: ${i * 0.1}s`}>
-          <div class="pillar-head">
-            <div class="pillar-icon">
-              <Icon name={pillar.icon} size={18} />
+      {
+        devops.pillars.map((pillar, i) => (
+          <article
+            class="pillar-card animate-on-scroll"
+            style={`transition-delay: ${i * 0.1}s`}
+          >
+            <div class="pillar-head">
+              <div class="pillar-icon">
+                <Icon name={pillar.icon} size={18} />
+              </div>
+              <h3>{pillar.title}</h3>
             </div>
-            <h3>{pillar.title}</h3>
-          </div>
-          <p class="pillar-desc">{pillar.description}</p>
-          <div class="pillar-items">
-            {pillar.items.map((item) => (
-              <span class="pill">
-                <Icon name={getTechIcon(item)} size={11} />
-                {item}
-              </span>
-            ))}
-          </div>
-        </article>
-      ))}
+            <p class="pillar-desc">{pillar.description}</p>
+            <div class="pillar-items">
+              {pillar.items.map((item) => (
+                <span class="pill">
+                  <Icon name={getTechIcon(item)} size={11} />
+                  {item}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
     </div>
 
     <div class="toolchain animate-on-scroll" style="transition-delay: 0.2s">
       <span class="toolchain-label">Core Toolchain</span>
       <div class="toolchain-items">
-        {devops.toolchain.map((tool) => (
-          <span class="tool-tag">
-            <Icon name={getTechIcon(tool)} size={11} />
-            {tool}
-          </span>
-        ))}
+        {
+          devops.toolchain.map((tool) => (
+            <span class="tool-tag">
+              <Icon name={getTechIcon(tool)} size={11} />
+              {tool}
+            </span>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -61,14 +68,20 @@ import { getTechIcon } from "../utils/tech-icons";
 
   .devops-hero {
     margin-bottom: 1.25rem;
-    padding: 1.1rem 1.2rem;
-    border: 1px solid var(--ctp-surface0);
-    border-radius: 12px;
-    background: rgba(49, 50, 68, 0.22);
+    padding: 1.15rem 1.25rem;
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    background: var(--surface-card-strong);
+    box-shadow: var(--surface-shadow);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
+    -webkit-backdrop-filter: blur(var(--glass-blur))
+      saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
   }
 
   .devops-hero p {
-    color: var(--ctp-subtext0);
+    color: var(--ctp-subtext1);
     line-height: 1.7;
   }
 
@@ -79,17 +92,42 @@ import { getTechIcon } from "../utils/tech-icons";
   }
 
   .pillar-card {
+    position: relative;
+    overflow: hidden;
     border-radius: 14px;
-    border: 1px solid var(--ctp-surface0);
-    background: rgba(49, 50, 68, 0.25);
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
     padding: 1.25rem;
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--surface-shadow);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
+    -webkit-backdrop-filter: blur(var(--glass-blur))
+      saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .pillar-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.85),
+      transparent
+    );
+    pointer-events: none;
   }
 
   .pillar-card:hover {
     border-color: var(--ctp-surface1);
     transform: translateY(-2px);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--surface-shadow);
   }
 
   .pillar-head {
@@ -109,8 +147,8 @@ import { getTechIcon } from "../utils/tech-icons";
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    border: 1px solid rgba(148, 226, 213, 0.16);
-    background: rgba(148, 226, 213, 0.08);
+    border: 1px solid var(--accent-teal-border);
+    background: var(--accent-teal-bg);
     color: var(--ctp-teal);
     display: flex;
     align-items: center;
@@ -119,7 +157,7 @@ import { getTechIcon } from "../utils/tech-icons";
   }
 
   .pillar-desc {
-    color: var(--ctp-subtext0);
+    color: var(--ctp-subtext1);
     font-size: 0.88rem;
     line-height: 1.65;
     margin-bottom: 0.8rem;
@@ -138,9 +176,9 @@ import { getTechIcon } from "../utils/tech-icons";
     font-size: 0.77rem;
     padding: 0.22rem 0.65rem;
     border-radius: 999px;
-    border: 1px solid rgba(137, 180, 250, 0.22);
+    border: 1px solid var(--accent-blue-border);
     color: var(--ctp-blue);
-    background: rgba(137, 180, 250, 0.08);
+    background: var(--accent-blue-bg);
   }
 
   .pill :global(.icon) {
@@ -152,10 +190,16 @@ import { getTechIcon } from "../utils/tech-icons";
 
   .toolchain {
     margin-top: 1rem;
-    border: 1px solid var(--ctp-surface0);
+    border: 1px solid var(--surface-border);
     border-radius: 12px;
     padding: 0.95rem 1rem;
-    background: rgba(49, 50, 68, 0.18);
+    background: var(--surface-card-strong);
+    box-shadow: var(--surface-shadow);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
+    -webkit-backdrop-filter: blur(var(--glass-blur))
+      saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
   }
 
   .toolchain-label {
@@ -164,7 +208,7 @@ import { getTechIcon } from "../utils/tech-icons";
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--ctp-overlay1);
+    color: var(--ctp-overlay2);
     margin-bottom: 0.6rem;
   }
 
@@ -179,9 +223,9 @@ import { getTechIcon } from "../utils/tech-icons";
     align-items: center;
     gap: 0.3rem;
     font-size: 0.78rem;
-    color: var(--ctp-teal);
-    border: 1px solid rgba(148, 226, 213, 0.22);
-    background: rgba(148, 226, 213, 0.06);
+    color: var(--ctp-text);
+    border: 1px solid var(--accent-teal-border);
+    background: var(--accent-teal-bg);
     border-radius: 7px;
     padding: 0.2rem 0.6rem;
   }

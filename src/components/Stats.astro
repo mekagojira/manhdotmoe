@@ -1,18 +1,25 @@
 ---
-import stats from '../content/stats.json';
+import stats from "../content/stats.json";
 ---
 
 <section class="stats-section">
   <div class="stats-container">
     <div class="stats-grid">
-      {stats.map((stat, i) => (
-        <div class="stat-card animate-on-scroll" style={`transition-delay: ${i * 0.1}s`}>
-          <div class="stat-glow"></div>
-          <span class="stat-value" data-value={stat.value}>{stat.value}</span>
-          <span class="stat-label">{stat.label}</span>
-          <span class="stat-detail">{stat.detail}</span>
-        </div>
-      ))}
+      {
+        stats.map((stat, i) => (
+          <div
+            class="stat-card animate-on-scroll"
+            style={`transition-delay: ${i * 0.1}s`}
+          >
+            <div class="stat-glow" />
+            <span class="stat-value" data-value={stat.value}>
+              {stat.value}
+            </span>
+            <span class="stat-label">{stat.label}</span>
+            <span class="stat-detail">{stat.detail}</span>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -24,7 +31,7 @@ import stats from '../content/stats.json';
   }
 
   .stats-section::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 50%;
@@ -32,11 +39,16 @@ import stats from '../content/stats.json';
     width: 80%;
     max-width: 600px;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--ctp-surface1), transparent);
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--ctp-surface1),
+      transparent
+    );
   }
 
   .stats-section::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -44,7 +56,12 @@ import stats from '../content/stats.json';
     width: 80%;
     max-width: 600px;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--ctp-surface1), transparent);
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--ctp-surface1),
+      transparent
+    );
   }
 
   .stats-container {
@@ -66,7 +83,10 @@ import stats from '../content/stats.json';
     background: rgba(49, 50, 68, 0.34);
     border: 1px solid var(--ctp-surface0);
     overflow: hidden;
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .stat-card:hover {
@@ -82,7 +102,11 @@ import stats from '../content/stats.json';
     transform: translateX(-50%);
     width: 120px;
     height: 120px;
-    background: radial-gradient(circle, rgba(203, 166, 247, 0.08) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(203, 166, 247, 0.08) 0%,
+      transparent 70%
+    );
     pointer-events: none;
     transition: opacity 0.3s ease;
     opacity: 0;

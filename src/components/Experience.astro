@@ -1,8 +1,8 @@
 ---
-import SectionHeading from './SectionHeading.astro';
-import Icon from './Icon.astro';
-import BrandIcon from './BrandIcon.astro';
-import experiences from '../content/experiences.json';
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+import BrandIcon from "./BrandIcon.astro";
+import experiences from "../content/experiences.json";
 ---
 
 <section id="experience" class="section">
@@ -13,59 +13,80 @@ import experiences from '../content/experiences.json';
     />
 
     <div class="timeline">
-      {experiences.map((exp, i) => (
-        <div class="timeline-item animate-on-scroll" style={`transition-delay: ${i * 0.15}s`}>
-          <div class="timeline-marker">
-            <div class="marker-dot"></div>
-            {i < experiences.length - 1 && <div class="marker-line"></div>}
-          </div>
-
-          <div class="timeline-card">
-            <div class="card-shimmer"></div>
-            <div class="card-header">
-              <div class="card-title-group">
-                <div class="card-company-icon">
-                  <Icon name="building" size={16} />
-                </div>
-                <div>
-                  <h3 class="card-role">{exp.role}</h3>
-                  <p class="card-company">
-                    {exp.url ? (
-                      <a href={exp.url} target="_blank" rel="noopener noreferrer" class="company-link">
-                        {exp.company}
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path></svg>
-                      </a>
-                    ) : (
-                      exp.company
-                    )}
-                  </p>
-                </div>
-              </div>
-              <span class="card-period">
-                <Icon name="calendar" size={12} />
-                {exp.period}
-              </span>
+      {
+        experiences.map((exp, i) => (
+          <div
+            class="timeline-item animate-on-scroll"
+            style={`transition-delay: ${i * 0.15}s`}
+          >
+            <div class="timeline-marker">
+              <div class="marker-dot" />
+              {i < experiences.length - 1 && <div class="marker-line" />}
             </div>
 
-            <p class="card-description">{exp.description}</p>
-
-            <ul class="card-highlights">
-              {exp.highlights.map((h) => (
-                <li>{h}</li>
-              ))}
-            </ul>
-
-            <div class="card-tech">
-              {exp.technologies.map((tech) => (
-                <span class="tech-tag">
-                  <BrandIcon label={tech} size={12} />
-                  {tech}
+            <div class="timeline-card">
+              <div class="card-shimmer" />
+              <div class="card-header">
+                <div class="card-title-group">
+                  <div class="card-company-icon">
+                    <Icon name="building" size={16} />
+                  </div>
+                  <div>
+                    <h3 class="card-role">{exp.role}</h3>
+                    <p class="card-company">
+                      {exp.url ? (
+                        <a
+                          href={exp.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="company-link"
+                        >
+                          {exp.company}
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                          </svg>
+                        </a>
+                      ) : (
+                        exp.company
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <span class="card-period">
+                  <Icon name="calendar" size={12} />
+                  {exp.period}
                 </span>
-              ))}
+              </div>
+
+              <p class="card-description">{exp.description}</p>
+
+              <ul class="card-highlights">
+                {exp.highlights.map((h) => (
+                  <li>{h}</li>
+                ))}
+              </ul>
+
+              <div class="card-tech">
+                {exp.technologies.map((tech) => (
+                  <span class="tech-tag">
+                    <BrandIcon label={tech} size={12} />
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
@@ -120,11 +141,14 @@ import experiences from '../content/experiences.json';
 
   .timeline-card {
     flex: 1;
-    background: rgba(49, 50, 68, 0.3);
-    border: 1px solid var(--ctp-surface0);
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
     border-radius: 16px;
     padding: 1.75rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
     position: relative;
     overflow: hidden;
   }
@@ -147,12 +171,14 @@ import experiences from '../content/experiences.json';
   }
 
   @keyframes shimmer {
-    to { transform: translateX(100%); }
+    to {
+      transform: translateX(100%);
+    }
   }
 
   .timeline-card:hover {
     border-color: var(--ctp-surface1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--surface-shadow);
     transform: translateX(4px);
   }
 
@@ -174,8 +200,8 @@ import experiences from '../content/experiences.json';
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    background: rgba(203, 166, 247, 0.08);
-    border: 1px solid rgba(203, 166, 247, 0.15);
+    background: var(--accent-mauve-bg);
+    border: 1px solid var(--accent-mauve-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,7 +212,7 @@ import experiences from '../content/experiences.json';
   }
 
   .timeline-card:hover .card-company-icon {
-    background: rgba(203, 166, 247, 0.14);
+    background: var(--accent-mauve-bg);
   }
 
   .card-role {
@@ -213,7 +239,9 @@ import experiences from '../content/experiences.json';
   .company-link svg {
     opacity: 0;
     transform: translate(-2px, 2px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   .company-link:hover {
@@ -231,12 +259,12 @@ import experiences from '../content/experiences.json';
     gap: 0.4rem;
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    color: var(--ctp-overlay1);
+    color: var(--ctp-subtext0);
     white-space: nowrap;
     padding: 0.25rem 0.75rem;
     border-radius: 6px;
-    background: rgba(49, 50, 68, 0.5);
-    border: 1px solid var(--ctp-surface0);
+    background: var(--surface-card-strong);
+    border: 1px solid var(--surface-border);
   }
 
   .card-period :global(.icon) {
@@ -264,7 +292,7 @@ import experiences from '../content/experiences.json';
   }
 
   .card-highlights li::before {
-    content: '▹';
+    content: "▹";
     position: absolute;
     left: 0;
     color: var(--ctp-teal);
@@ -285,9 +313,9 @@ import experiences from '../content/experiences.json';
     font-size: 0.75rem;
     padding: 0.2rem 0.6rem;
     border-radius: 6px;
-    background: rgba(137, 180, 250, 0.08);
+    background: var(--accent-blue-bg);
     color: var(--ctp-blue);
-    border: 1px solid rgba(137, 180, 250, 0.15);
+    border: 1px solid var(--accent-blue-border);
   }
 
   .tech-tag :global(.icon),

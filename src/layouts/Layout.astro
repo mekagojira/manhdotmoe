@@ -4,21 +4,33 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  showSectionLinks?: boolean;
 }
 
 const {
   title = "Nguyễn Đức Mạnh — Senior Software Engineer",
   description = "Personal website of Nguyễn Đức Mạnh, a senior software engineer in Hanoi, Vietnam — 7+ years building scalable systems powering millions of users.",
+  showSectionLinks = true,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem("theme");
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const theme = saved || (systemPrefersDark ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#1e1e2e" />
+    <meta name="theme-color" id="meta-theme-color" content="#1e1e2e" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,15 +52,34 @@ const {
           >
         </a>
         <div class="nav-links">
-          <a href="#about" data-section="about">About</a>
-          <a href="#expertise" data-section="expertise">Expertise</a>
-          <a href="#architecture" data-section="architecture">Architecture</a>
-          <a href="#devops" data-section="devops">DevOps</a>
-          <a href="#experience" data-section="experience">Experience</a>
-          <a href="#stack" data-section="stack">Stack</a>
-          <a href="#links" data-section="links">Links</a>
-          <a href="#contact" data-section="contact">Contact</a>
+          {
+            showSectionLinks ? (
+              <>
+                <a href="#about" data-section="about">About</a>
+                <a href="#expertise" data-section="expertise">Expertise</a>
+                <a href="#architecture" data-section="architecture"
+                  >Architecture</a
+                >
+                <a href="#devops" data-section="devops">DevOps</a>
+                <a href="#experience" data-section="experience">Experience</a>
+                <a href="#stack" data-section="stack">Stack</a>
+                <a href="#links" data-section="links">Links</a>
+                <a href="#contact" data-section="contact">Contact</a>
+              </>
+            ) : (
+              <a href="/" data-section="home">Home</a>
+            )
+          }
         </div>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Switch to light theme"
+          title="Toggle theme"
+        >
+          <span class="theme-icon" id="theme-icon">🌙</span>
+        </button>
       </div>
     </nav>
 
@@ -145,6 +176,44 @@ const {
           glow.style.opacity = "0";
         });
       }
+
+      // Theme toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      const metaThemeColor = document.getElementById("meta-theme-color");
+      const darkThemeColor = "#1e1e2e";
+      const lightThemeColor = "#eff1f5";
+
+      const syncThemeUI = (theme: string) => {
+        const isDark = theme === "dark";
+        if (themeIcon) {
+          themeIcon.textContent = isDark ? "🌙" : "☀️";
+        }
+        if (themeToggle) {
+          themeToggle.setAttribute(
+            "aria-label",
+            isDark ? "Switch to light theme" : "Switch to dark theme",
+          );
+        }
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute(
+            "content",
+            isDark ? darkThemeColor : lightThemeColor,
+          );
+        }
+      };
+
+      const initialTheme =
+        document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      syncThemeUI(initialTheme);
+
+      themeToggle?.addEventListener("click", () => {
+        const nextTheme =
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = nextTheme;
+        localStorage.setItem("theme", nextTheme);
+        syncThemeUI(nextTheme);
+      });
     </script>
 
     <style>
@@ -189,7 +258,7 @@ const {
       }
 
       .nav-scrolled {
-        background: rgba(17, 17, 27, 0.85);
+        background: var(--nav-scrolled-bg);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--ctp-surface0);
@@ -202,6 +271,7 @@ const {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 1rem;
       }
 
       .nav-logo {
@@ -225,6 +295,33 @@ const {
       .nav-links {
         display: flex;
         gap: 1.75rem;
+      }
+
+      .theme-toggle {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 999px;
+        border: 1px solid var(--ctp-surface1);
+        background: var(--ctp-mantle);
+        color: var(--ctp-text);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition:
+          border-color 0.2s ease,
+          color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .theme-toggle:hover {
+        border-color: var(--ctp-mauve);
+        color: var(--ctp-mauve);
+        transform: translateY(-1px);
+      }
+
+      .theme-icon {
+        line-height: 1;
+        font-size: 0.95rem;
       }
 
       .nav-links a {
@@ -320,6 +417,11 @@ const {
 
         .nav-links a {
           font-size: 0.8rem;
+        }
+
+        .theme-toggle {
+          width: 2rem;
+          height: 2rem;
         }
       }
     </style>

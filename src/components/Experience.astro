@@ -2,6 +2,7 @@
 import SectionHeading from './SectionHeading.astro';
 import Icon from './Icon.astro';
 import experiences from '../content/experiences.json';
+import { getTechIcon } from '../utils/tech-icons';
 ---
 
 <section id="experience" class="section">
@@ -56,7 +57,10 @@ import experiences from '../content/experiences.json';
 
             <div class="card-tech">
               {exp.technologies.map((tech) => (
-                <span class="tech-tag">{tech}</span>
+                <span class="tech-tag">
+                  <Icon name={getTechIcon(tech)} size={12} />
+                  {tech}
+                </span>
               ))}
             </div>
           </div>
@@ -274,6 +278,9 @@ import experiences from '../content/experiences.json';
   }
 
   .tech-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     padding: 0.2rem 0.6rem;
@@ -281,6 +288,13 @@ import experiences from '../content/experiences.json';
     background: rgba(137, 180, 250, 0.08);
     color: var(--ctp-blue);
     border: 1px solid rgba(137, 180, 250, 0.15);
+  }
+
+  .tech-tag :global(.icon) {
+    width: 12px;
+    height: 12px;
+    opacity: 0.8;
+    flex-shrink: 0;
   }
 
   @media (max-width: 640px) {

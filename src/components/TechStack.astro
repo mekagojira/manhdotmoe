@@ -1,6 +1,7 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
 import techstack from '../content/techstack.json';
 ---
 
@@ -18,7 +19,7 @@ import techstack from '../content/techstack.json';
           <div class="primary-card-shimmer"></div>
           <div class="primary-header">
             <div class="primary-icon">
-              <Icon name={lang.icon} size={22} />
+              <BrandIcon label={lang.name} size={20} />
             </div>
             <h3 class="primary-name">{lang.name}</h3>
           </div>
@@ -53,7 +54,10 @@ import techstack from '../content/techstack.json';
           </h4>
           <div class="cat-items">
             {cat.items.map((item) => (
-              <span class="cat-tag">{item}</span>
+              <span class="cat-tag">
+                <BrandIcon label={item} size={12} />
+                {item}
+              </span>
             ))}
           </div>
         </div>
@@ -260,6 +264,9 @@ import techstack from '../content/techstack.json';
   }
 
   .cat-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     font-size: 0.8rem;
     padding: 0.25rem 0.65rem;
     border-radius: 6px;
@@ -267,6 +274,14 @@ import techstack from '../content/techstack.json';
     color: var(--ctp-blue);
     border: 1px solid rgba(137, 180, 250, 0.12);
     transition: all 0.25s ease;
+  }
+
+  .cat-tag :global(.icon),
+  .cat-tag :global(.brand-icon) {
+    width: 12px;
+    height: 12px;
+    opacity: 0.8;
+    flex-shrink: 0;
   }
 
   .cat-tag:hover {

@@ -37,17 +37,36 @@
     {
       "name": "Backend Frameworks",
       "icon": "server",
+      "items": ["NestJS", "Express", "Fastify", "Gin", "ASP.NET Core", "Socket.io"]
+    },
+    {
+      "name": "DevOps & Platform",
+      "icon": "cloud",
       "items": [
-        "NestJS",
-        "Express",
-        "Fastify",
-        "Gin",
-        "ASP.NET Core",
-        "Socket.io"
+        "Docker",
+        "Kubernetes / EKS",
+        "OpenShift (OCP)",
+        "AWS",
+        "Terraform",
+        "ArgoCD / GitOps",
+        "CI/CD Pipelines",
+        "Nginx / Ingress",
+        "Helm"
       ]
     },
     {
-      "name": "Databases",
+      "name": "Observability",
+      "icon": "target",
+      "items": [
+        "Prometheus",
+        "Grafana",
+        "Jaeger / Tracing",
+        "ELK / Log Aggregation",
+        "Alerting & SLA"
+      ]
+    },
+    {
+      "name": "Databases & Messaging",
       "icon": "database",
       "items": [
         "MySQL / RDS",
@@ -55,34 +74,14 @@
         "Oracle",
         "Redis / Elasticache",
         "MongoDB",
-        "Elasticsearch"
-      ]
-    },
-    {
-      "name": "Infrastructure",
-      "icon": "cloud",
-      "items": [
-        "AWS",
-        "Docker",
-        "Kubernetes / EKS",
-        "EC2",
         "Kafka",
-        "CI/CD",
-        "Terraform",
-        "Nginx"
+        "Elasticsearch"
       ]
     },
     {
       "name": "Tools & Practices",
       "icon": "terminal",
-      "items": [
-        "Git",
-        "GNU/Linux",
-        "System Design",
-        "Agile/Scrum",
-        "TDD",
-        "AI-assisted Dev"
-      ]
+      "items": ["Git", "GNU/Linux", "System Design", "Agile/Scrum", "TDD", "AI-assisted Dev"]
     }
   ]
 }

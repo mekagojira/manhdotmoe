@@ -2,14 +2,15 @@
   {
     "company": "MobiFone Solutions",
     "url": "https://mobifonesolutions.vn",
-    "role": "Technical Leader",
+    "role": "Technical Lead / System Architect",
     "period": "Jun 2025 — Present",
-    "description": "Leading end-to-end delivery of complex Digital Government projects at MobiFone Solutions (part of MobiFone Group). Responsible for product architecture, stakeholder management, and mentoring a team of developers across high-stakes national-scale initiatives.",
+    "description": "Lead architect for national-scale Digital Government platforms at MobiFone Solutions, while also owning DevOps and system administration responsibilities across platform operations, reliability, and release delivery.",
     "highlights": [
-      "Designed and architected scalable product solutions for digital government platforms, aligned with national standards",
-      "Led cross-functional coordination between clients, product owners, and engineering teams",
-      "Mentored development team, establishing best practices, coding standards, and delivery workflows",
-      "Actively contributed to core feature development, resolving complex technical challenges for production stability"
+      "Designed and governed architecture across many modules/software domains as the main architect",
+      "Engineered the platform for 120M CCU readiness with high availability, scalability, and operational resilience",
+      "Owned DevOps/SysAdmin execution: infrastructure operations, CI/CD workflows, production hardening, and incident response",
+      "Ensured compliance with strict ISO/TCVN standards and security requirements throughout design and delivery",
+      "Established fast CI/CD and continuous improvement loops with strong observability and release discipline"
     ],
     "technologies": [
       "TypeScript",
@@ -18,7 +19,9 @@
       ".NET",
       "Oracle",
       "Kafka",
-      "System Architecture"
+      "OpenShift",
+      "Prometheus",
+      "Grafana"
     ]
   },
   {
@@ -26,12 +29,12 @@
     "url": "https://vinfast.vn",
     "role": "Senior Software Engineer",
     "period": "May 2024 — Jun 2025",
-    "description": "Worked at Vietnam's best-selling car brand as Senior Software Engineer, taking on both technical and lead roles. Built and maintained infrastructure for Green Future (Vietnam's largest car rental service) and developed internal portals for digital transformation across business units.",
+    "description": "Worked at Vietnam's best-selling car brand as Senior Software Engineer, taking on both development and infrastructure roles. Built and operated high-load systems for Green Future (Vietnam's largest car rental service) and internal enterprise portals.",
     "highlights": [
-      "Rebuilt Green Future's entire system from scratch in ~2 months while keeping business features running",
-      "Designed scalable, reliable infrastructure on AWS (EKS, EC2, RDS MySQL, Elasticache Redis)",
-      "Developed multiple internal portals for a complex role-driven enterprise ecosystem",
-      "Worked closely with business leaders and stakeholders to align solutions with evolving needs"
+      "Rebuilt Green Future's entire system from scratch in ~2 months with zero-downtime migration",
+      "Designed and operated AWS infrastructure (EKS, EC2, RDS, Elasticache) with full CI/CD automation",
+      "Implemented monitoring, alerting, and log aggregation for production reliability across services",
+      "Managed Kubernetes clusters, rolling deployments, and auto-scaling for traffic spikes"
     ],
     "technologies": [
       "TypeScript",
@@ -40,6 +43,8 @@
       "Next.js",
       "AWS",
       "EKS",
+      "Docker",
+      "CI/CD",
       "MySQL",
       "Redis"
     ]
@@ -52,9 +57,9 @@
     "description": "Core engineer at EMDDI, a ride-hailing platform powering Taxi Viet Union (200+ taxi companies, 100k+ vehicles). Led backend for GSM XanhSM — a Vingroup-backed ride-hailing app serving over 1 million trips daily across Taxi, E-scooter, and Delivery services.",
     "highlights": [
       "Led backend architecture for XanhSM: ~20 microservices, 1M TPM, P99 < 800ms, 99.99% uptime",
-      "Designed cross-service communication via REST, message brokers, RPC, and event queues",
-      "Built full-stack enterprise billing platform (EMDDI for Business) with admin tools for both sides",
-      "Owned backend for customer-facing apps with third-party integrations (VNPAY, Viettel Pay)"
+      "Operated high-load production systems on AWS EKS — managing deployments, scaling, and incident response",
+      "Built CI/CD pipelines and automated testing, reducing deployment time and improving release confidence",
+      "Designed cross-service communication via REST, message brokers, RPC, and event queues"
     ],
     "technologies": [
       "TypeScript",
@@ -66,6 +71,7 @@
       "React",
       "AWS",
       "EKS",
+      "Docker",
       "MySQL",
       "Redis"
     ]

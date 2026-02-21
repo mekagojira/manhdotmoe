@@ -1,0 +1,2217 @@
+---
+import "../styles/global.css";
+import About from "../components/About.astro";
+import Expertise from "../components/Expertise.astro";
+import Architecture from "../components/Architecture.astro";
+import DevOps from "../components/DevOps.astro";
+import Experience from "../components/Experience.astro";
+import TechStack from "../components/TechStack.astro";
+import Links from "../components/Links.astro";
+import Contact from "../components/Contact.astro";
+import BrandIcon from "../components/BrandIcon.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1200, initial-scale=1, user-scalable=no" />
+  <title>Discover — maxOS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script is:inline>
+    (() => {
+      const saved = localStorage.getItem("theme");
+      const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = saved || (dark ? "dark" : "light");
+    })();
+  </script>
+</head>
+
+<body class="os-booting">
+  <div class="os-boot-screen" id="os-boot-screen" aria-live="polite" role="status">
+    <div class="os-boot-card">
+      <div class="os-boot-icon" aria-hidden="true">
+        <BrandIcon label="Linux" size={34} />
+      </div>
+      <div class="os-boot-text">
+        <p class="os-boot-title">maxOS</p>
+        <div class="os-boot-progress">
+          <div class="os-boot-progress-bar" id="os-boot-bar"></div>
+        </div>
+        <p class="os-boot-status" id="os-boot-status">Initializing kernel...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="discover-os" id="discover-os">
+  <header class="menu-bar">
+    <div class="menu-left">
+      <button
+        class="launcher"
+        id="launcher-btn"
+        type="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-controls="launcher-menu"
+      >
+        <span class="launcher-icon" aria-hidden="true">
+          <BrandIcon label="Linux" size={15} />
+        </span>
+        <span>maxOS</span>
+      </button>
+      <div class="launcher-menu" id="launcher-menu">
+        <button type="button" data-open-app="about">About</button>
+        <button type="button" data-open-app="expertise">Expertise</button>
+        <button type="button" data-open-app="architecture">Architecture</button>
+        <button type="button" data-open-app="devops">DevOps</button>
+        <button type="button" data-open-app="experience">Experience</button>
+        <button type="button" data-open-app="stack">Stack</button>
+        <button type="button" data-open-app="links">Links</button>
+        <button type="button" data-open-app="contact">Contact</button>
+        <span class="launcher-sep" aria-hidden="true"></span>
+        <button type="button" data-open-app="browser">Browser</button>
+        <button type="button" data-open-app="calculator">Calculator</button>
+        <button type="button" data-open-app="youtube">YouTube</button>
+        <span class="launcher-sep" aria-hidden="true"></span>
+        <button type="button" id="open-all-apps">Open All Apps</button>
+        <a href="/" class="launcher-logout">Log Out</a>
+      </div>
+    </div>
+    <div class="menu-right">
+      <span class="sys-pill" id="sys-browser">Browser</span>
+      <span class="sys-pill" id="sys-machine">Machine</span>
+      <span class="sys-pill" id="sys-date">Date</span>
+      <span class="sys-pill clock" id="sys-time">00:00</span>
+      <button
+        class="theme-toggle"
+        id="discover-theme-toggle"
+        type="button"
+        aria-label="Toggle theme"
+      >
+        <span id="discover-theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace" id="workspace">
+    <section
+      class="app-window app-instance"
+      id="win-about"
+      data-app="about"
+      style="left: 4%; top: 3%; width: min(760px, 92vw); height: 70vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">About</p>
+      </div>
+      <div class="window-content"><About /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-browser"
+      data-app="browser"
+      hidden
+      style="left: 6%; top: 5%; width: min(900px, 92vw); height: 74vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Browser</p>
+      </div>
+      <div class="window-content browser-shell">
+        <div class="browser-toolbar">
+          <button class="browser-nav-btn" id="browser-back" type="button" aria-label="Back">
+            <Icon name="arrows" size={14} />
+          </button>
+          <button
+            class="browser-nav-btn"
+            id="browser-forward"
+            type="button"
+            aria-label="Forward"
+          >
+            <Icon name="arrows" size={14} />
+          </button>
+          <button
+            class="browser-nav-btn"
+            id="browser-reload"
+            type="button"
+            aria-label="Reload"
+          >
+            <Icon name="target" size={14} />
+          </button>
+          <input
+            id="browser-address"
+            class="browser-address"
+            type="text"
+            value="https://example.com"
+            placeholder="Search or enter website name"
+          />
+          <button class="browser-go" id="browser-go" type="button">Go</button>
+        </div>
+        <p class="browser-status" id="browser-status"></p>
+        <iframe
+          id="browser-frame"
+          class="browser-frame"
+          title="Portfolio browser"
+          src="https://example.com"
+        ></iframe>
+      </div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-expertise"
+      data-app="expertise"
+      hidden
+      style="left: 8%; top: 8%; width: min(820px, 92vw); height: 72vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Expertise</p>
+      </div>
+      <div class="window-content"><Expertise /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-architecture"
+      data-app="architecture"
+      hidden
+      style="left: 10%; top: 12%; width: min(860px, 92vw); height: 72vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Architecture</p>
+      </div>
+      <div class="window-content"><Architecture /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-devops"
+      data-app="devops"
+      hidden
+      style="left: 12%; top: 16%; width: min(840px, 92vw); height: 72vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">DevOps</p>
+      </div>
+      <div class="window-content"><DevOps /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-experience"
+      data-app="experience"
+      hidden
+      style="left: 14%; top: 20%; width: min(880px, 92vw); height: 74vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Experience</p>
+      </div>
+      <div class="window-content"><Experience /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-stack"
+      data-app="stack"
+      hidden
+      style="left: 16%; top: 24%; width: min(860px, 92vw); height: 72vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Stack</p>
+      </div>
+      <div class="window-content"><TechStack /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-links"
+      data-app="links"
+      hidden
+      style="left: 18%; top: 28%; width: min(760px, 92vw); height: 66vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Links</p>
+      </div>
+      <div class="window-content"><Links /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-contact"
+      data-app="contact"
+      hidden
+      style="left: 20%; top: 32%; width: min(760px, 92vw); height: 66vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"
+          ></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Contact</p>
+      </div>
+      <div class="window-content"><Contact /></div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-calculator"
+      data-app="calculator"
+      hidden
+      style="left: 28%; top: 14%; width: 320px; height: auto;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">Calculator</p>
+      </div>
+      <div class="window-content calc-shell">
+        <div class="calc-display" id="calc-display">
+          <span class="calc-expr" id="calc-expr"></span>
+          <span class="calc-value" id="calc-value">0</span>
+        </div>
+        <div class="calc-grid">
+          <button class="calc-btn fn" data-calc="clear">AC</button>
+          <button class="calc-btn fn" data-calc="negate" set:html="&plus;/&minus;" />
+          <button class="calc-btn fn" data-calc="percent">%</button>
+          <button class="calc-btn op" data-calc="div" set:html="&divide;" />
+
+          <button class="calc-btn" data-calc="7">7</button>
+          <button class="calc-btn" data-calc="8">8</button>
+          <button class="calc-btn" data-calc="9">9</button>
+          <button class="calc-btn op" data-calc="mul" set:html="&times;" />
+
+          <button class="calc-btn" data-calc="4">4</button>
+          <button class="calc-btn" data-calc="5">5</button>
+          <button class="calc-btn" data-calc="6">6</button>
+          <button class="calc-btn op" data-calc="sub" set:html="&minus;" />
+
+          <button class="calc-btn" data-calc="1">1</button>
+          <button class="calc-btn" data-calc="2">2</button>
+          <button class="calc-btn" data-calc="3">3</button>
+          <button class="calc-btn op" data-calc="add">+</button>
+
+          <button class="calc-btn zero" data-calc="0">0</button>
+          <button class="calc-btn" data-calc=".">.</button>
+          <button class="calc-btn op eq" data-calc="=">=</button>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="app-window app-instance"
+      id="win-youtube"
+      data-app="youtube"
+      hidden
+      style="left: 10%; top: 8%; width: min(880px, 92vw); height: 72vh;"
+    >
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <button class="dot red control-close" type="button" aria-label="Close"></button>
+          <button
+            class="dot yellow control-min"
+            type="button"
+            aria-label="Minimize"></button>
+          <button
+            class="dot green control-max"
+            type="button"
+            aria-label="Maximize"></button>
+        </div>
+        <p class="window-title">YouTube</p>
+      </div>
+      <div class="window-content yt-shell">
+        <div class="yt-toolbar">
+          <div class="yt-logo">
+            <svg viewBox="0 0 28 20" class="yt-logo-icon" aria-hidden="true">
+              <rect rx="4" width="28" height="20" fill="#FF0000"/>
+              <polygon points="11,5 11,15 20,10" fill="#fff"/>
+            </svg>
+            <span class="yt-logo-text">YouTube</span>
+          </div>
+          <div class="yt-search-wrap">
+            <input
+              id="yt-search"
+              class="yt-search-input"
+              type="text"
+              placeholder="Search YouTube..."
+            />
+            <button class="yt-search-btn" id="yt-search-btn" type="button" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="yt-content" id="yt-content"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="dock" id="dock">
+    <button class="dock-item" data-open-app="browser" title="Browser">
+      <Icon name="target" size={18} />
+    </button>
+    <button class="dock-item active" data-open-app="about" title="About">
+      <Icon name="user" size={18} />
+    </button>
+    <button class="dock-item" data-open-app="expertise" title="Expertise">
+      <Icon name="zap" size={18} />
+    </button>
+    <button class="dock-item" data-open-app="architecture" title="Architecture">
+      <Icon name="boxes" size={18} />
+    </button>
+    <button class="dock-item" data-open-app="devops" title="DevOps">
+      <BrandIcon label="Linux" size={16} />
+    </button>
+    <button class="dock-item" data-open-app="experience" title="Experience">
+      <Icon name="calendar" size={18} />
+    </button>
+    <button class="dock-item" data-open-app="stack" title="Stack">
+      <Icon name="layers" size={18} />
+    </button>
+    <button class="dock-item" data-open-app="links" title="Links">
+      <Icon name="arrows" size={18} />
+    </button>
+    <button class="dock-item" data-open-app="contact" title="Contact">
+      <Icon name="mail" size={18} />
+    </button>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <button class="dock-item" data-open-app="calculator" title="Calculator">
+      <Icon name="calculator" size={18} />
+    </button>
+    <button class="dock-item" data-open-app="youtube" title="YouTube">
+      <svg width="18" height="14" viewBox="0 0 28 20" aria-hidden="true">
+        <rect rx="3" width="28" height="20" fill="#FF0000"/>
+        <polygon points="11,5 11,15 20,10" fill="#fff"/>
+      </svg>
+    </button>
+  </nav>
+
+  <div class="context-menu" id="context-menu" role="menu" aria-hidden="true">
+    <button type="button" role="menuitem" data-context-action="open-all">
+      Open all apps
+    </button>
+    <button type="button" role="menuitem" data-context-action="close-all">
+      Close all apps
+    </button>
+    <button type="button" role="menuitem" data-context-action="toggle-theme">
+      Toggle theme
+    </button>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    document.documentElement.dataset.theme =
+      saved || (prefersDark ? "dark" : "light");
+  })();
+
+  // Boot sequence
+  (() => {
+    const bootScreen = document.getElementById("os-boot-screen");
+    const bootBar = document.getElementById("os-boot-bar");
+    const bootStatus = document.getElementById("os-boot-status");
+    if (!bootScreen || !bootBar || !bootStatus) return;
+
+    const steps = [
+      { text: "Initializing kernel...", pct: 10, delay: 0 },
+      { text: "Loading modules...", pct: 25, delay: 300 },
+      { text: "Mounting filesystem...", pct: 40, delay: 250 },
+      { text: "Starting display server...", pct: 55, delay: 200 },
+      { text: "Loading desktop environment...", pct: 72, delay: 280 },
+      { text: "Applying theme...", pct: 85, delay: 200 },
+      { text: "Starting maxOS...", pct: 95, delay: 250 },
+      { text: "Welcome.", pct: 100, delay: 200 },
+    ];
+
+    let elapsed = 0;
+    steps.forEach((step) => {
+      elapsed += step.delay;
+      setTimeout(() => {
+        bootBar.style.width = `${step.pct}%`;
+        bootStatus.textContent = step.text;
+      }, elapsed);
+    });
+
+    setTimeout(() => {
+      bootScreen.classList.add("is-hidden");
+      document.body.classList.remove("os-booting");
+      setTimeout(() => bootScreen.remove(), 450);
+    }, elapsed + 350);
+  })();
+
+  const themeToggle = document.getElementById("discover-theme-toggle");
+  const themeIcon = document.getElementById("discover-theme-icon");
+  const syncThemeUI = (theme: string) => {
+    if (themeIcon) themeIcon.textContent = theme === "dark" ? "🌙" : "☀️";
+  };
+  syncThemeUI(document.documentElement.dataset.theme || "dark");
+  themeToggle?.addEventListener("click", () => {
+    const next =
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("theme", next);
+    syncThemeUI(next);
+  });
+
+  const launcherBtn = document.getElementById("launcher-btn");
+  const launcherMenu = document.getElementById("launcher-menu");
+  const closeLauncher = () => {
+    launcherMenu?.classList.remove("is-open");
+    launcherBtn?.setAttribute("aria-expanded", "false");
+  };
+  launcherBtn?.addEventListener("click", () => {
+    const open = !launcherMenu?.classList.contains("is-open");
+    launcherMenu?.classList.toggle("is-open", open);
+    launcherBtn?.setAttribute("aria-expanded", String(open));
+  });
+
+  const sysBrowser = document.getElementById("sys-browser");
+  const sysMachine = document.getElementById("sys-machine");
+  const sysDate = document.getElementById("sys-date");
+  const sysTime = document.getElementById("sys-time");
+
+  const ua = navigator.userAgent;
+  const browserName = ua.includes("Firefox")
+    ? "Firefox"
+    : ua.includes("Edg/")
+      ? "Edge"
+      : ua.includes("Chrome")
+        ? "Chrome"
+        : ua.includes("Safari")
+          ? "Safari"
+          : "Browser";
+  const platform = navigator.platform || "Unknown";
+  const cores = navigator.hardwareConcurrency || 0;
+  if (sysBrowser) sysBrowser.textContent = browserName;
+  if (sysMachine)
+    sysMachine.textContent = cores ? `${platform} • ${cores}c` : platform;
+
+  const tick = () => {
+    const now = new Date();
+    if (sysDate) {
+      sysDate.textContent = now.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      });
+    }
+    if (sysTime) {
+      sysTime.textContent = now.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+  };
+  tick();
+  window.setInterval(tick, 1000);
+
+  // Simple Safari-like browser app
+  const browserFrame = document.getElementById("browser-frame") as
+    | HTMLIFrameElement
+    | null;
+  const browserAddress = document.getElementById("browser-address") as
+    | HTMLInputElement
+    | null;
+  const browserBack = document.getElementById("browser-back") as
+    | HTMLButtonElement
+    | null;
+  const browserForward = document.getElementById("browser-forward") as
+    | HTMLButtonElement
+    | null;
+  const browserReload = document.getElementById("browser-reload") as
+    | HTMLButtonElement
+    | null;
+  const browserGo = document.getElementById("browser-go") as
+    | HTMLButtonElement
+    | null;
+  const browserStatus = document.getElementById("browser-status");
+
+  const browserHistory: string[] = ["https://example.com"];
+  let browserIndex = 0;
+  let browserNavMode: "none" | "typed" | "back" | "forward" | "reload" = "none";
+  const browserProxyPrefix = "https://r.jina.ai/http://";
+
+  const toBrowserUrl = (raw: string) => {
+    const q = raw.trim();
+    if (!q) return "https://example.com";
+    if (/^[a-zA-Z]+:\/\//.test(q)) return q;
+    if (q.includes(" ")) {
+      return `https://duckduckgo.com/?q=${encodeURIComponent(q)}`;
+    }
+    if (q.includes(".")) return `https://${q}`;
+    return `https://duckduckgo.com/?q=${encodeURIComponent(q)}`;
+  };
+
+  const toFrameUrl = (logicalUrl: string) => {
+    try {
+      const u = new URL(logicalUrl, window.location.origin);
+      const isHttp = u.protocol === "http:" || u.protocol === "https:";
+      const sameOrigin = u.origin === window.location.origin;
+      if (!isHttp || sameOrigin) return u.toString();
+      const stripped = u.toString().replace(/^https?:\/\//, "");
+      return `${browserProxyPrefix}${stripped}`;
+    } catch {
+      return logicalUrl;
+    }
+  };
+
+  const fromFrameUrl = (frameUrl: string) => {
+    if (frameUrl.startsWith(browserProxyPrefix)) {
+      return `https://${frameUrl.slice(browserProxyPrefix.length)}`;
+    }
+    return frameUrl;
+  };
+
+  const syncBrowserNav = () => {
+    if (browserBack) browserBack.disabled = browserIndex <= 0;
+    if (browserForward) browserForward.disabled = browserIndex >= browserHistory.length - 1;
+    if (browserAddress) browserAddress.value = browserHistory[browserIndex];
+    const logical = browserHistory[browserIndex] || "";
+    if (browserStatus) {
+      const external =
+        /^https?:\/\//.test(logical) &&
+        !logical.startsWith(window.location.origin);
+      browserStatus.textContent = external
+        ? "Reader mode: external websites are proxied to avoid iframe blocking."
+        : "";
+    }
+  };
+
+  const browserNavigate = (input: string) => {
+    const logicalUrl = toBrowserUrl(input);
+    browserHistory.splice(browserIndex + 1);
+    browserHistory.push(logicalUrl);
+    browserIndex = browserHistory.length - 1;
+    browserNavMode = "typed";
+    if (browserFrame) browserFrame.src = toFrameUrl(logicalUrl);
+    syncBrowserNav();
+  };
+
+  browserBack?.addEventListener("click", () => {
+    if (browserIndex <= 0 || !browserFrame) return;
+    browserIndex -= 1;
+    browserNavMode = "back";
+    browserFrame.src = toFrameUrl(browserHistory[browserIndex]);
+    syncBrowserNav();
+  });
+
+  browserForward?.addEventListener("click", () => {
+    if (browserIndex >= browserHistory.length - 1 || !browserFrame) return;
+    browserIndex += 1;
+    browserNavMode = "forward";
+    browserFrame.src = toFrameUrl(browserHistory[browserIndex]);
+    syncBrowserNav();
+  });
+
+  browserReload?.addEventListener("click", () => {
+    if (!browserFrame) return;
+    browserNavMode = "reload";
+    browserFrame.src = toFrameUrl(browserHistory[browserIndex]);
+  });
+
+  browserGo?.addEventListener("click", () => browserNavigate(browserAddress?.value || ""));
+  browserAddress?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") browserNavigate(browserAddress.value);
+  });
+
+  browserFrame?.addEventListener("load", () => {
+    const current = fromFrameUrl(browserFrame.src);
+    if (browserNavMode === "none" && current !== browserHistory[browserIndex]) {
+      browserHistory.splice(browserIndex + 1);
+      browserHistory.push(current);
+      browserIndex = browserHistory.length - 1;
+    } else {
+      browserHistory[browserIndex] = current;
+    }
+    browserNavMode = "none";
+    syncBrowserNav();
+  });
+  syncBrowserNav();
+
+  // Calculator engine
+  const calcDisplay = document.getElementById("calc-value");
+  const calcExpr = document.getElementById("calc-expr");
+  let calcCurrent = "0";
+  let calcPrev = "";
+  let calcOp = "";
+  let calcReset = false;
+
+  const opSymbol: Record<string, string> = {
+    add: "+",
+    sub: "\u2212",
+    mul: "\u00d7",
+    div: "\u00f7",
+  };
+  const ops = new Set(["add", "sub", "mul", "div"]);
+
+  const calcUpdate = () => {
+    if (calcDisplay) calcDisplay.textContent = calcCurrent;
+    if (calcExpr)
+      calcExpr.textContent =
+        calcPrev && calcOp ? `${calcPrev} ${opSymbol[calcOp] || calcOp}` : "";
+  };
+
+  const calcCompute = (): string => {
+    const a = parseFloat(calcPrev);
+    const b = parseFloat(calcCurrent);
+    if (Number.isNaN(a) || Number.isNaN(b)) return calcCurrent;
+    let r = 0;
+    switch (calcOp) {
+      case "add":
+        r = a + b;
+        break;
+      case "sub":
+        r = a - b;
+        break;
+      case "mul":
+        r = a * b;
+        break;
+      case "div":
+        r = b !== 0 ? a / b : 0;
+        break;
+      default:
+        return calcCurrent;
+    }
+    return String(parseFloat(r.toPrecision(12)));
+  };
+
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-calc]")
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.calc || "";
+
+        if (key >= "0" && key <= "9") {
+          if (calcReset) {
+            calcCurrent = "";
+            calcReset = false;
+          }
+          calcCurrent = calcCurrent === "0" ? key : calcCurrent + key;
+          calcUpdate();
+          return;
+        }
+
+        if (key === ".") {
+          if (calcReset) {
+            calcCurrent = "0";
+            calcReset = false;
+          }
+          if (!calcCurrent.includes(".")) calcCurrent += ".";
+          calcUpdate();
+          return;
+        }
+
+        if (key === "clear") {
+          calcCurrent = "0";
+          calcPrev = "";
+          calcOp = "";
+          calcReset = false;
+          calcUpdate();
+          return;
+        }
+
+        if (key === "negate") {
+          calcCurrent = String(-parseFloat(calcCurrent));
+          calcUpdate();
+          return;
+        }
+
+        if (key === "percent") {
+          calcCurrent = String(parseFloat(calcCurrent) / 100);
+          calcUpdate();
+          return;
+        }
+
+        if (key === "=") {
+          if (calcOp && calcPrev) {
+            calcCurrent = calcCompute();
+            calcPrev = "";
+            calcOp = "";
+            calcReset = true;
+          }
+          calcUpdate();
+          return;
+        }
+
+        if (ops.has(key)) {
+          if (calcOp && calcPrev && !calcReset) {
+            calcCurrent = calcCompute();
+          }
+          calcPrev = calcCurrent;
+          calcOp = key;
+          calcReset = true;
+          calcUpdate();
+        }
+      });
+    });
+
+  // YouTube app
+  const ytSearch = document.getElementById("yt-search") as HTMLInputElement | null;
+  const ytSearchBtn = document.getElementById("yt-search-btn");
+  const ytContent = document.getElementById("yt-content");
+  let ytLastQuery = "";
+
+  const ytParseId = (input: string): string | null => {
+    const patterns = [
+      /(?:youtube\.com\/watch\?.*v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/|youtube\.com\/shorts\/)([\w-]{11})/,
+      /^([\w-]{11})$/,
+    ];
+    for (const p of patterns) {
+      const m = input.match(p);
+      if (m) return m[1];
+    }
+    return null;
+  };
+
+  const ytPlayVideo = (id: string) => {
+    if (!ytContent) return;
+    ytContent.innerHTML = `<div class="yt-player-wrap">
+      <button class="yt-back-btn" id="yt-back-to-results" type="button">\u2190 Back to browse</button>
+      <div class="yt-player">
+        <iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>`;
+    if (ytSearch) ytSearch.value = `https://youtube.com/watch?v=${id}`;
+    document.getElementById("yt-back-to-results")?.addEventListener("click", () => {
+      if (ytLastQuery) ytDoSearch(ytLastQuery);
+      else ytShowWelcome();
+    });
+  };
+
+  const ytRenderGrid = (items: { id: string; title: string }[]) => {
+    if (!ytContent) return;
+    ytContent.innerHTML =
+      `<p class="yt-section-label">Results</p><div class="yt-grid">${ytBuildGrid(items)}</div>`;
+    ytBindThumbs();
+  };
+
+  const pipedInstances = [
+    "https://pipedapi.kavin.rocks",
+    "https://pipedapi.adminforge.de",
+    "https://api.piped.yt",
+  ];
+
+  const ytDoSearch = async (query?: string) => {
+    const q = query || ytSearch?.value.trim();
+    if (!q || !ytContent) return;
+
+    const videoId = ytParseId(q);
+    if (videoId) {
+      ytPlayVideo(videoId);
+      return;
+    }
+
+    ytLastQuery = q;
+    ytContent.innerHTML = `<div class="yt-loading">Searching for "${q}"...</div>`;
+
+    for (const api of pipedInstances) {
+      try {
+        const res = await fetch(
+          `${api}/search?q=${encodeURIComponent(q)}&filter=videos`,
+        );
+        if (!res.ok) continue;
+        const data = await res.json();
+        const items = (data.items || [])
+          .filter((v: any) => v.url && v.title)
+          .slice(0, 12)
+          .map((v: any) => ({
+            id: v.url.replace("/watch?v=", ""),
+            title: v.title,
+          }));
+        if (items.length > 0) {
+          ytRenderGrid(items);
+          return;
+        }
+      } catch {
+        continue;
+      }
+    }
+
+    ytContent.innerHTML = `<div class="yt-loading">
+      <div style="text-align:center">
+        <p>Could not fetch results. Try pasting a YouTube URL directly.</p>
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="color:var(--ctp-blue)">Open YouTube search in new tab \u2197</a>
+      </div>
+    </div>`;
+  };
+
+  const ytBuildGrid = (items: { id: string; title: string }[]) => {
+    return items
+      .map(
+        (v) =>
+          `<button class="yt-card" data-yt-id="${v.id}" title="${v.title.replace(/"/g, "&quot;")}"><span class="yt-card-img"><img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="" loading="lazy" /><span class="yt-card-play"><svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="rgba(0,0,0,0.5)"/><polygon points="13,10 13,22 23,16" fill="#fff"/></svg></span></span><span class="yt-card-title">${v.title}</span></button>`,
+      )
+      .join("");
+  };
+
+  const ytBindThumbs = () => {
+    ytContent?.querySelectorAll<HTMLButtonElement>("[data-yt-id]").forEach((t: HTMLButtonElement) => {
+      t.addEventListener("click", () => {
+        const vid = t.dataset.ytId;
+        if (vid) ytPlayVideo(vid);
+      });
+    });
+  };
+
+  const ytShowWelcome = () => {
+    if (!ytContent) return;
+    const featured = [
+      { id: "dQw4w9WgXcQ", title: "Rick Astley - Never Gonna Give You Up" },
+      { id: "jNQXAC9IVRw", title: "Me at the zoo" },
+      { id: "8aGhZQkoFbQ", title: "What is the Internet?" },
+      { id: "PkZNo7MFNFg", title: "Learn JavaScript - Full Course" },
+      { id: "rfscVS0vtbw", title: "Learn Python - Full Course" },
+      { id: "HXV3zeQKqGY", title: "CSS Crash Course" },
+      { id: "pTFZrS4whdY", title: "CSS Grid in 100 Seconds" },
+      { id: "Tn6-PIqc4UM", title: "React in 100 Seconds" },
+      { id: "lkIFF4maKMU", title: "TypeScript in 100 Seconds" },
+    ];
+    ytContent.innerHTML =
+      `<p class="yt-section-label">Suggested</p><div class="yt-grid">${ytBuildGrid(featured)}</div>`;
+    ytBindThumbs();
+  };
+
+  ytShowWelcome();
+
+  ytSearchBtn?.addEventListener("click", () => ytDoSearch());
+  ytSearch?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") ytDoSearch();
+  });
+
+  const windows = Array.from(
+    document.querySelectorAll<HTMLElement>(".app-instance"),
+  );
+  const dockButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>(".dock-item[data-open-app]"),
+  );
+  let highestZ = 10;
+  const maxOpenWindows = 4;
+  const openOrder: string[] = windows
+    .filter((win) => !win.hidden)
+    .map((win) => win.dataset.app || "")
+    .filter(Boolean);
+  let dragState: {
+    win: HTMLElement;
+    startX: number;
+    startY: number;
+    baseX: number;
+    baseY: number;
+  } | null = null;
+
+  const getTransformXY = (win: HTMLElement) => {
+    const raw = win.dataset.translate || "0,0";
+    const [x, y] = raw.split(",").map((n) => Number(n) || 0);
+    return { x, y };
+  };
+
+  const setTransformXY = (win: HTMLElement, x: number, y: number) => {
+    win.dataset.translate = `${x},${y}`;
+    win.style.transform = `translate(${x}px, ${y}px)`;
+  };
+
+  const setDockActive = (appId: string, active: boolean) => {
+    const btn = dockButtons.find((b) => b.dataset.openApp === appId);
+    btn?.classList.toggle("active", active);
+  };
+
+  const focusWindow = (win: HTMLElement) => {
+    highestZ += 1;
+    win.style.zIndex = String(highestZ);
+  };
+
+  const getWindowByApp = (appId: string) =>
+    document.querySelector<HTMLElement>(`[data-app="${appId}"]`);
+
+  const tileWindows = () => {
+    const visible = openOrder
+      .map((id) => getWindowByApp(id))
+      .filter((win): win is HTMLElement => Boolean(win && !win.hidden))
+      .slice(0, maxOpenWindows);
+    const count = visible.length;
+    if (count === 0) return;
+
+    const gutter = "12px";
+    const halfW = `calc(50% - (${gutter} / 2))`;
+    const halfH = `calc(50% - (${gutter} / 2))`;
+
+    const setTile = (
+      win: HTMLElement,
+      x: string,
+      y: string,
+      w: string,
+      h: string,
+    ) => {
+      win.classList.remove("is-maximized", "is-minimized");
+      win.style.left = x;
+      win.style.top = y;
+      win.style.width = w;
+      win.style.height = h;
+      setTransformXY(win, 0, 0);
+      focusWindow(win);
+    };
+
+    if (count === 1) {
+      setTile(visible[0], "0%", "0%", "100%", "100%");
+      return;
+    }
+    if (count === 2) {
+      setTile(visible[0], "0%", "0%", halfW, "100%");
+      setTile(visible[1], `calc(50% + (${gutter} / 2))`, "0%", halfW, "100%");
+      return;
+    }
+    if (count === 3) {
+      setTile(visible[0], "0%", "0%", halfW, "100%");
+      setTile(visible[1], `calc(50% + (${gutter} / 2))`, "0%", halfW, halfH);
+      setTile(
+        visible[2],
+        `calc(50% + (${gutter} / 2))`,
+        `calc(50% + (${gutter} / 2))`,
+        halfW,
+        halfH,
+      );
+      return;
+    }
+
+    setTile(visible[0], "0%", "0%", halfW, halfH);
+    setTile(visible[1], `calc(50% + (${gutter} / 2))`, "0%", halfW, halfH);
+    setTile(visible[2], "0%", `calc(50% + (${gutter} / 2))`, halfW, halfH);
+    setTile(
+      visible[3],
+      `calc(50% + (${gutter} / 2))`,
+      `calc(50% + (${gutter} / 2))`,
+      halfW,
+      halfH,
+    );
+  };
+
+  const openApp = (appId: string) => {
+    const win = getWindowByApp(appId);
+    if (!win) return;
+    if (!win.hidden) {
+      focusWindow(win);
+      return;
+    }
+    if (openOrder.length >= maxOpenWindows) {
+      const oldest = openOrder.shift();
+      if (oldest) {
+        const oldestWin = getWindowByApp(oldest);
+        if (oldestWin) {
+          oldestWin.hidden = true;
+          oldestWin.classList.remove("is-minimized", "is-maximized");
+          setDockActive(oldest, false);
+        }
+      }
+    }
+    win.hidden = false;
+    win.classList.remove("is-minimized");
+    openOrder.push(appId);
+    setDockActive(appId, true);
+    focusWindow(win);
+    tileWindows();
+  };
+
+  const closeApp = (win: HTMLElement) => {
+    const appId = win.dataset.app || "";
+    win.hidden = true;
+    win.classList.remove("is-minimized", "is-maximized");
+    if (appId) {
+      const idx = openOrder.indexOf(appId);
+      if (idx >= 0) openOrder.splice(idx, 1);
+      setDockActive(appId, false);
+    }
+    tileWindows();
+  };
+
+  const minimizeApp = (win: HTMLElement) => {
+    closeApp(win);
+  };
+
+  const toggleMaximize = (win: HTMLElement) => {
+    focusWindow(win);
+    tileWindows();
+  };
+
+  const openAllApps = () => {
+    windows.forEach((win) => {
+      const appId = win.dataset.app || "";
+      if (appId) openApp(appId);
+    });
+  };
+
+  const closeAllApps = () => {
+    windows.forEach((win) => closeApp(win));
+  };
+
+  dockButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const appId = btn.dataset.openApp;
+      if (appId) openApp(appId);
+    });
+  });
+
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-open-app]:not(.dock-item)")
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const appId = btn.dataset.openApp;
+        if (appId) openApp(appId);
+        closeLauncher();
+      });
+    });
+
+  document.getElementById("open-all-apps")?.addEventListener("click", () => {
+    openAllApps();
+    closeLauncher();
+  });
+
+  windows.forEach((win) => {
+    const titlebar = win.querySelector<HTMLElement>(".window-titlebar");
+    const closeBtn = win.querySelector<HTMLButtonElement>(".control-close");
+    const minBtn = win.querySelector<HTMLButtonElement>(".control-min");
+    const maxBtn = win.querySelector<HTMLButtonElement>(".control-max");
+
+    setTransformXY(win, 0, 0);
+    win.dataset.initialized = "1";
+
+    win.addEventListener("mousedown", () => focusWindow(win));
+
+    closeBtn?.addEventListener("click", () => closeApp(win));
+    minBtn?.addEventListener("click", () => minimizeApp(win));
+    maxBtn?.addEventListener("click", () => toggleMaximize(win));
+
+    titlebar?.addEventListener("mousedown", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("button, a")) return;
+      if (win.classList.contains("is-maximized")) return;
+      // WM-style tiling controls placement; disable manual drag.
+      return;
+      if (window.innerWidth <= 900) return;
+      const { x, y } = getTransformXY(win);
+      dragState = {
+        win,
+        startX: e.clientX,
+        startY: e.clientY,
+        baseX: x,
+        baseY: y,
+      };
+      titlebar?.classList.add("is-dragging");
+      document.body.style.userSelect = "none";
+      focusWindow(win);
+    });
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!dragState) return;
+    const x = dragState.baseX + (e.clientX - dragState.startX);
+    const y = dragState.baseY + (e.clientY - dragState.startY);
+    setTransformXY(dragState.win, x, y);
+  });
+
+  const stopDrag = () => {
+    if (!dragState) return;
+    dragState.win
+      .querySelector(".window-titlebar")
+      ?.classList.remove("is-dragging");
+    dragState = null;
+    document.body.style.userSelect = "";
+  };
+  document.addEventListener("mouseup", stopDrag);
+  window.addEventListener("blur", stopDrag);
+  window.addEventListener("resize", tileWindows);
+
+  document.addEventListener("click", (e) => {
+    const t = e.target as Node;
+    if (!launcherBtn?.contains(t) && !launcherMenu?.contains(t))
+      closeLauncher();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeLauncher();
+      closeContextMenu();
+    }
+  });
+
+  const contextMenu = document.getElementById("context-menu");
+  const openContextMenu = (x: number, y: number) => {
+    if (!contextMenu) return;
+    contextMenu.style.left = `${x}px`;
+    contextMenu.style.top = `${y}px`;
+    contextMenu.classList.add("is-open");
+    const rect = contextMenu.getBoundingClientRect();
+    contextMenu.style.left = `${Math.max(8, Math.min(x, window.innerWidth - rect.width - 8))}px`;
+    contextMenu.style.top = `${Math.max(8, Math.min(y, window.innerHeight - rect.height - 8))}px`;
+    contextMenu.setAttribute("aria-hidden", "false");
+  };
+  const closeContextMenu = () => {
+    contextMenu?.classList.remove("is-open");
+    contextMenu?.setAttribute("aria-hidden", "true");
+  };
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    openContextMenu(e.clientX, e.clientY);
+  });
+  document.addEventListener("click", () => closeContextMenu());
+
+  contextMenu
+    ?.querySelectorAll<HTMLElement>("[data-context-action]")
+    .forEach((item) => {
+      item.addEventListener("click", () => {
+        const action = item.dataset.contextAction;
+        if (action === "open-all") openAllApps();
+        if (action === "close-all") closeAllApps();
+        if (action === "toggle-theme") themeToggle?.click();
+        closeContextMenu();
+      });
+    });
+
+  tileWindows();
+
+  const animTargets =
+    ".animate-on-scroll, .animate-slide-left, .animate-slide-right, .animate-scale";
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+  );
+  document.querySelectorAll(animTargets).forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  /* Boot screen */
+  .os-booting .discover-os {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .os-boot-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    display: grid;
+    place-items: center;
+    background: var(--ctp-base);
+    transition:
+      opacity 0.4s ease,
+      visibility 0.4s ease;
+  }
+
+  .os-boot-screen.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .os-boot-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 2rem;
+  }
+
+  .os-boot-icon {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    color: var(--ctp-text);
+    border: 1px solid var(--accent-blue-border);
+    background: var(--accent-blue-bg);
+    animation: bootPulse 1.4s ease-in-out infinite;
+  }
+
+  .os-boot-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .os-boot-title {
+    font-family: "Inter", var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ctp-text);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .os-boot-progress {
+    width: 180px;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--ctp-surface0);
+    overflow: hidden;
+  }
+
+  .os-boot-progress-bar {
+    width: 0%;
+    height: 100%;
+    border-radius: 99px;
+    background: var(--ctp-blue);
+    transition: width 0.3s ease;
+  }
+
+  .os-boot-status {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ctp-subtext0);
+    letter-spacing: 0.01em;
+    margin: 0;
+    min-height: 1rem;
+  }
+
+  @keyframes bootPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.06); opacity: 0.85; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .os-boot-icon {
+      animation: none;
+    }
+    .os-boot-progress-bar {
+      transition: none;
+    }
+  }
+
+  .discover-os {
+    --os-font: "Inter", var(--font-sans);
+    transition: opacity 0.3s ease;
+    min-height: 100vh;
+    background:
+      radial-gradient(
+        circle at 10% 8%,
+        rgba(137, 180, 250, 0.12),
+        transparent 36%
+      ),
+      radial-gradient(
+        circle at 90% 12%,
+        rgba(203, 166, 247, 0.1),
+        transparent 34%
+      ),
+      var(--ctp-base);
+    padding: 0 0.75rem 0.75rem;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.7rem;
+    font-family: var(--os-font);
+  }
+
+  .menu-bar,
+  .dock,
+  .app-window,
+  .context-menu {
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card-strong);
+    box-shadow: var(--surface-shadow);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
+    -webkit-backdrop-filter: blur(var(--glass-blur))
+      saturate(var(--glass-saturate)) brightness(var(--glass-brightness));
+  }
+
+  .menu-bar {
+    margin: 0 -0.75rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding: 0.22rem 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 60;
+    box-shadow: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--surface-border) 75%, transparent);
+    background: color-mix(in srgb, var(--ctp-mantle) 88%, var(--ctp-base));
+  }
+
+  .menu-left,
+  .menu-right {
+    display: flex;
+    align-items: center;
+    gap: 0.36rem;
+    position: relative;
+  }
+
+  .menu-title {
+    font-family: var(--os-font);
+    font-size: 0.8rem;
+    color: var(--ctp-text);
+    font-weight: 600;
+  }
+
+  .launcher,
+  .theme-toggle,
+  .sys-pill {
+    height: 1.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    color: var(--ctp-text);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .launcher {
+    padding: 0 0.44rem;
+    gap: 0.38rem;
+    font-size: 0.82rem;
+    font-family: var(--os-font);
+    height: 1.65rem;
+    border: none;
+    background: transparent;
+    color: var(--ctp-text);
+  }
+
+  .launcher-icon {
+    width: 1.08rem;
+    height: 1.08rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--accent-blue-bg) 55%, transparent);
+  }
+
+  .launcher:hover,
+  .theme-toggle:hover,
+  .sys-pill:hover {
+    background: color-mix(in srgb, var(--surface-card) 50%, transparent);
+  }
+
+  .theme-toggle {
+    min-width: 1.65rem;
+    height: 1.65rem;
+    border: none;
+    background: transparent;
+    justify-content: center;
+    font-size: 0.82rem;
+    border-radius: 7px;
+  }
+
+  .sys-pill {
+    height: auto;
+    padding: 0.24rem 0.36rem;
+    font-size: 0.76rem;
+    font-family: var(--os-font);
+    color: var(--ctp-subtext0);
+    white-space: nowrap;
+    border: none;
+    background: transparent;
+    border-radius: 7px;
+  }
+
+  .sys-pill.clock {
+    color: var(--ctp-text);
+    font-weight: 600;
+  }
+
+  .launcher-menu {
+    position: fixed;
+    top: calc(1.65rem + 0.32rem);
+    left: 0.35rem;
+    width: min(72vw, 220px);
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    display: grid;
+    gap: 1px;
+    padding: 0.35rem;
+    border-radius: 10px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.28),
+      0 2px 8px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+      brightness(var(--glass-brightness));
+    -webkit-backdrop-filter: blur(var(--glass-blur))
+      saturate(var(--glass-saturate)) brightness(var(--glass-brightness));
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scale(0.97);
+    transform-origin: top left;
+    transition:
+      opacity 0.18s ease,
+      transform 0.2s ease,
+      visibility 0.18s ease;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .launcher-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .launcher-menu a,
+  .launcher-menu button {
+    border: none;
+    background: transparent;
+    color: var(--ctp-subtext1);
+    text-decoration: none;
+    text-align: left;
+    border-radius: 6px;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.78rem;
+    font-family: var(--os-font);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .launcher-menu a:hover,
+  .launcher-menu button:hover {
+    background: var(--ctp-blue);
+    color: #fff;
+  }
+
+  .launcher-sep {
+    height: 1px;
+    background: var(--surface-border);
+    margin: 0.15rem 0.3rem;
+  }
+
+  .launcher-logout {
+    color: var(--ctp-red) !important;
+  }
+
+  .launcher-logout:hover {
+    background: var(--ctp-red) !important;
+    color: #fff !important;
+  }
+
+  .workspace {
+    position: relative;
+    min-height: 0;
+    height: calc(100vh - 7.2rem);
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px dashed
+      color-mix(in srgb, var(--surface-border) 65%, transparent);
+  }
+
+  .app-window {
+    position: absolute;
+    border-radius: 16px;
+    overflow: hidden;
+    min-width: 340px;
+    min-height: 220px;
+    resize: both;
+  }
+
+  .app-window[hidden] {
+    display: none !important;
+  }
+
+  .app-window.is-minimized {
+    height: 2.45rem !important;
+    resize: none;
+  }
+
+  .app-window.is-minimized .window-content {
+    display: none;
+  }
+
+  .app-window.is-maximized {
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: translate(0, 0) !important;
+    resize: none;
+  }
+
+  .window-titlebar {
+    height: 2.45rem;
+    padding: 0 0.68rem;
+    border-bottom: 1px solid var(--surface-border);
+    display: flex;
+    align-items: center;
+    gap: 0.56rem;
+    background: var(--surface-card);
+    cursor: grab;
+    user-select: none;
+  }
+
+  .window-titlebar.is-dragging {
+    cursor: grabbing;
+  }
+
+  .window-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .dot {
+    width: 0.64rem;
+    height: 0.64rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    padding: 0;
+  }
+
+  .dot.red {
+    background: #ff5f57;
+    border-color: #de4c45;
+  }
+  .dot.yellow {
+    background: #febc2e;
+    border-color: #dd9d20;
+  }
+  .dot.green {
+    background: #28c840;
+    border-color: #21a736;
+  }
+
+  .window-title {
+    font-family: var(--os-font);
+    font-size: 0.86rem;
+    color: var(--ctp-subtext0);
+    margin: 0;
+  }
+
+  .window-content {
+    height: calc(100% - 2.45rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .browser-shell {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    overflow: hidden;
+  }
+
+  .browser-toolbar {
+    display: grid;
+    grid-template-columns: auto auto auto minmax(0, 1fr) auto;
+    gap: 0.4rem;
+    padding: 0.45rem;
+    border-bottom: 1px solid var(--surface-border);
+    background: color-mix(in srgb, var(--surface-card) 80%, transparent);
+  }
+
+  .browser-nav-btn,
+  .browser-go {
+    height: 1.9rem;
+    border-radius: 9px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    color: var(--ctp-text);
+    padding: 0 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .browser-nav-btn[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .browser-address {
+    height: 1.9rem;
+    border-radius: 9px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    color: var(--ctp-text);
+    padding: 0 0.62rem;
+    font-family: var(--os-font);
+    font-size: 0.84rem;
+    outline: none;
+  }
+
+  .browser-address:focus {
+    border-color: var(--ctp-blue);
+  }
+
+  .browser-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #fff;
+  }
+
+  .browser-status {
+    min-height: 1.5rem;
+    margin: 0;
+    padding: 0.18rem 0.55rem;
+    font-size: 0.72rem;
+    color: var(--ctp-subtext0);
+    border-bottom: 1px solid var(--surface-border);
+    background: color-mix(in srgb, var(--surface-card) 72%, transparent);
+  }
+
+  /* YouTube app — macOS / glassy / Catppuccin */
+  .yt-shell {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    background: var(--ctp-base);
+  }
+
+  .yt-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.38rem 0.65rem;
+    border-bottom: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  }
+
+  .yt-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  .yt-logo-icon {
+    width: 20px;
+    height: 14px;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .yt-logo-text {
+    font-family: var(--os-font);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ctp-text);
+  }
+
+  .yt-search-wrap {
+    flex: 1;
+    display: flex;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .yt-search-input {
+    flex: 1;
+    height: 1.65rem;
+    border: 1px solid var(--surface-border);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    background: color-mix(in srgb, var(--ctp-crust) 70%, transparent);
+    color: var(--ctp-text);
+    padding: 0 0.55rem;
+    font-family: var(--os-font);
+    font-size: 0.76rem;
+    outline: none;
+    backdrop-filter: blur(8px);
+  }
+
+  .yt-search-input:focus {
+    border-color: var(--ctp-blue);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ctp-blue) 20%, transparent);
+  }
+
+  .yt-search-btn {
+    height: 1.65rem;
+    width: 2rem;
+    border: 1px solid var(--surface-border);
+    border-radius: 0 8px 8px 0;
+    background: var(--surface-card);
+    color: var(--ctp-subtext0);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+
+  .yt-search-btn:hover {
+    background: var(--ctp-surface0);
+    color: var(--ctp-text);
+  }
+
+  .yt-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+  }
+
+  :global(.yt-section-label) {
+    font-family: var(--os-font);
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--ctp-overlay1);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+    padding: 0.6rem 0.75rem 0.25rem;
+  }
+
+  :global(.yt-loading) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    font-family: var(--os-font);
+    font-size: 0.8rem;
+    color: var(--ctp-subtext0);
+    padding: 2rem;
+  }
+
+  :global(.yt-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.65rem;
+    padding: 0.35rem 0.75rem 0.75rem;
+  }
+
+  :global(.yt-card) {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 10px;
+    transition: transform 0.15s ease;
+  }
+
+  :global(.yt-card:hover) {
+    transform: translateY(-2px);
+  }
+
+  :global(.yt-card-img) {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--ctp-crust);
+    border: 1px solid var(--surface-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  :global(.yt-card:hover .yt-card-img) {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    border-color: var(--ctp-blue);
+  }
+
+  :global(.yt-card-img img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  :global(.yt-card-play) {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    background: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+  }
+
+  :global(.yt-card:hover .yt-card-play) {
+    opacity: 1;
+  }
+
+  :global(.yt-card-title) {
+    display: block;
+    font-family: var(--os-font);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--ctp-text);
+    line-height: 1.3;
+    margin-top: 0.35rem;
+    padding: 0 0.1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global(.yt-player-wrap) {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    background: #000;
+  }
+
+  :global(.yt-back-btn) {
+    appearance: none;
+    border: none;
+    border-bottom: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    color: var(--ctp-blue);
+    font-family: var(--os-font);
+    font-size: 0.74rem;
+    font-weight: 500;
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s;
+  }
+
+  :global(.yt-back-btn:hover) {
+    background: var(--ctp-surface0);
+  }
+
+  :global(.yt-player) {
+    position: relative;
+    min-height: 0;
+  }
+
+  :global(.yt-player iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #000;
+  }
+
+  /* Calculator app */
+  .calc-shell {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--ctp-mantle);
+    user-select: none;
+  }
+
+  .calc-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0.6rem 1.1rem 0.4rem;
+    min-height: 5.4rem;
+    background: var(--ctp-crust);
+    border-bottom: 1px solid var(--surface-border);
+  }
+
+  .calc-expr {
+    font-size: 0.82rem;
+    color: var(--ctp-subtext0);
+    min-height: 1.1rem;
+    line-height: 1;
+    font-family: var(--os-font);
+  }
+
+  .calc-value {
+    font-size: 2.6rem;
+    font-weight: 300;
+    color: var(--ctp-text);
+    line-height: 1.15;
+    font-family: var(--os-font);
+    letter-spacing: -0.04em;
+    word-break: break-all;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    padding: 1px;
+    background: color-mix(in srgb, var(--surface-border) 60%, transparent);
+  }
+
+  .calc-btn {
+    appearance: none;
+    border: none;
+    font-family: var(--os-font);
+    font-size: 1.25rem;
+    font-weight: 400;
+    padding: 0.72rem 0;
+    cursor: pointer;
+    text-align: center;
+    color: var(--ctp-text);
+    background: var(--ctp-mantle);
+    transition:
+      background 0.1s,
+      filter 0.1s;
+  }
+
+  .calc-btn:hover {
+    filter: brightness(1.1);
+  }
+
+  .calc-btn:active {
+    filter: brightness(0.92);
+  }
+
+  .calc-btn.fn {
+    background: var(--ctp-surface0);
+    color: var(--ctp-text);
+  }
+
+  .calc-btn.op {
+    background: var(--ctp-peach);
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .calc-btn.op:hover {
+    filter: brightness(1.08);
+  }
+
+  .calc-btn.op.eq {
+    background: var(--ctp-blue);
+  }
+
+  .calc-btn.zero {
+    grid-column: span 2;
+  }
+
+  :root[data-theme="light"] .calc-shell {
+    background: #e8ecf4;
+  }
+
+  :root[data-theme="light"] .calc-display {
+    background: #f0f2f8;
+  }
+
+  :root[data-theme="light"] .calc-btn {
+    background: #f6f7fb;
+  }
+
+  :root[data-theme="light"] .calc-btn.fn {
+    background: #dde1ec;
+  }
+
+  .dock {
+    border-radius: 16px;
+    margin: 0 auto;
+    width: fit-content;
+    padding: 0.38rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.38rem;
+    z-index: 65;
+  }
+
+  .dock-sep {
+    width: 1px;
+    height: 1.6rem;
+    background: var(--surface-border);
+    flex-shrink: 0;
+  }
+
+  .dock-item {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 10px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    color: var(--ctp-subtext0);
+    display: grid;
+    place-items: center;
+    transition:
+      transform 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .dock-item :global(.icon),
+  .dock-item :global(.brand-icon) {
+    width: 18px;
+    height: 18px;
+    opacity: 0.9;
+  }
+
+  .dock-item:hover {
+    transform: translateY(-4px) scale(1.08);
+    color: var(--ctp-text);
+    border-color: var(--ctp-surface2);
+  }
+
+  .dock-item.active {
+    border-color: var(--accent-mauve-border);
+    box-shadow: inset 0 -2px 0 var(--ctp-mauve);
+  }
+
+  .context-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-width: 190px;
+    padding: 0.3rem;
+    border-radius: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.96);
+    transform-origin: top left;
+    transition:
+      opacity 0.14s ease,
+      transform 0.14s ease,
+      visibility 0.14s ease;
+    z-index: 120;
+  }
+
+  .context-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+
+  .context-menu button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--ctp-subtext1);
+    text-align: left;
+    border-radius: 8px;
+    padding: 0.5rem 0.58rem;
+    font-family: var(--os-font);
+    font-size: 0.82rem;
+  }
+
+  .context-menu button:hover {
+    color: var(--ctp-text);
+    background: var(--accent-mauve-bg);
+  }
+
+  @media screen and (orientation: portrait) and (max-width: 900px) {
+    html {
+      width: 100vh;
+      height: 100vw;
+      transform: rotate(90deg);
+      transform-origin: top left;
+      position: fixed;
+      top: 0;
+      left: 100vw;
+      overflow: hidden;
+    }
+  }
+</style>
+</body>

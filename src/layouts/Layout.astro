@@ -57,11 +57,10 @@ const {
     <nav class="nav" id="nav">
       <div class="nav-inner">
         <a href="#top" class="nav-logo">
-          <span class="logo-bracket"
-            >{} MAX <span class="logo-bracket"></span></span
-          >
+          <span class="logo-prefix">{}</span>
+          <span class="logo-text">MAX</span>
         </a>
-        <div class="nav-links">
+        <div class="nav-links" id="nav-links">
           {
             showSectionLinks ? (
               <>
@@ -97,15 +96,31 @@ const {
             )
           }
         </div>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          type="button"
-          aria-label="Switch to light theme"
-          title="Toggle theme"
-        >
-          <span class="theme-icon" id="theme-icon">🌙</span>
-        </button>
+        <div class="nav-actions">
+          <button
+            class="mobile-menu-toggle"
+            id="mobile-menu-toggle"
+            type="button"
+            aria-label="Toggle menu"
+            aria-controls="nav-links"
+            aria-expanded="false"
+          >
+            <span class="mobile-menu-lines" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to light theme"
+            title="Toggle theme"
+          >
+            <span class="theme-icon" id="theme-icon">🌙</span>
+          </button>
+        </div>
       </div>
     </nav>
 
@@ -165,6 +180,9 @@ const {
 
       // Nav scroll effect
       const nav = document.getElementById("nav")!;
+      const mobileMenuToggle = document.getElementById(
+        "mobile-menu-toggle",
+      ) as HTMLButtonElement | null;
       window.addEventListener(
         "scroll",
         () => {
@@ -178,6 +196,34 @@ const {
       const navLinks = document.querySelectorAll<HTMLAnchorElement>(
         ".nav-links a[data-section]",
       );
+      const closeMobileMenu = () => {
+        nav.classList.remove("nav-menu-open");
+        mobileMenuToggle?.setAttribute("aria-expanded", "false");
+      };
+
+      mobileMenuToggle?.addEventListener("click", () => {
+        const nextOpen = !nav.classList.contains("nav-menu-open");
+        nav.classList.toggle("nav-menu-open", nextOpen);
+        mobileMenuToggle.setAttribute("aria-expanded", String(nextOpen));
+      });
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!nav.contains(e.target as Node)) {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMobileMenu();
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 860) closeMobileMenu();
+      });
 
       const sectionObserver = new IntersectionObserver(
         (entries) => {
@@ -388,6 +434,7 @@ const {
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
+        position: relative;
       }
 
       .nav-logo {
@@ -396,6 +443,9 @@ const {
         font-weight: 600;
         color: var(--ctp-text);
         letter-spacing: -0.02em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.28rem;
         transition: color 0.2s ease;
       }
 
@@ -403,14 +453,82 @@ const {
         color: var(--ctp-mauve);
       }
 
-      .logo-bracket {
+      .logo-prefix {
         color: var(--ctp-mauve);
         font-weight: 400;
+      }
+
+      .logo-text {
+        font-weight: 700;
       }
 
       .nav-links {
         display: flex;
         gap: 1.75rem;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+      }
+
+      .mobile-menu-toggle {
+        display: none;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 999px;
+        border: 1px solid var(--ctp-surface1);
+        background: var(--ctp-mantle);
+        color: var(--ctp-text);
+        place-items: center;
+        cursor: pointer;
+        transition:
+          border-color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .mobile-menu-lines {
+        position: relative;
+        width: 1rem;
+        height: 0.9rem;
+      }
+
+      .mobile-menu-lines span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: currentColor;
+        border-radius: 2px;
+        transition:
+          transform 0.25s ease,
+          opacity 0.2s ease,
+          top 0.25s ease;
+      }
+
+      .mobile-menu-lines span:nth-child(1) {
+        top: 0;
+      }
+      .mobile-menu-lines span:nth-child(2) {
+        top: 0.35rem;
+      }
+      .mobile-menu-lines span:nth-child(3) {
+        top: 0.7rem;
+      }
+
+      .nav-menu-open .mobile-menu-lines span:nth-child(1) {
+        top: 0.35rem;
+        transform: rotate(45deg);
+      }
+
+      .nav-menu-open .mobile-menu-lines span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav-menu-open .mobile-menu-lines span:nth-child(3) {
+        top: 0.35rem;
+        transform: rotate(-45deg);
       }
 
       .theme-toggle {
@@ -527,17 +645,103 @@ const {
       }
 
       @media (max-width: 640px) {
-        .nav-links {
-          gap: 1rem;
-        }
-
-        .nav-links a {
-          font-size: 0.8rem;
-        }
-
         .theme-toggle {
           width: 2rem;
           height: 2rem;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          top: 0.35rem;
+          left: 50%;
+          right: auto;
+          width: min(92vw, 560px);
+          transform: translateX(-50%);
+          padding: 0;
+        }
+
+        .nav-scrolled {
+          background: transparent;
+          border-bottom: none;
+          padding: 0;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+        }
+
+        .nav-inner {
+          padding: 0.48rem 0.6rem;
+          border-radius: 18px;
+          border: 1px solid var(--surface-border);
+          background: color-mix(in srgb, var(--ctp-mantle) 92%, var(--ctp-base));
+          box-shadow: var(--surface-shadow);
+          backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+            brightness(var(--glass-brightness));
+          -webkit-backdrop-filter: blur(var(--glass-blur))
+            saturate(var(--glass-saturate))
+            brightness(var(--glass-brightness));
+        }
+
+        .nav-logo {
+          display: none;
+        }
+
+        .mobile-menu-toggle {
+          display: grid;
+        }
+
+        .nav-links {
+          position: absolute;
+          top: calc(100% + 0.6rem);
+          left: 0;
+          width: min(88vw, 320px);
+          display: grid;
+          gap: 0.2rem;
+          padding: 0.5rem;
+          border-radius: 14px;
+          border: 1px solid var(--surface-border);
+          background: color-mix(in srgb, var(--ctp-mantle) 94%, var(--ctp-base));
+          box-shadow: var(--surface-shadow);
+          backdrop-filter: blur(calc(var(--glass-blur) * 0.95))
+            saturate(var(--glass-saturate))
+            brightness(var(--glass-brightness));
+          -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.95))
+            saturate(var(--glass-saturate))
+            brightness(var(--glass-brightness));
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-8px) scale(0.97);
+          transform-origin: top left;
+          transition:
+            opacity 0.22s ease,
+            transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+            visibility 0.22s ease;
+          pointer-events: none;
+        }
+
+        .nav-menu-open .nav-links {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0) scale(1);
+          pointer-events: auto;
+        }
+
+        .nav-links a {
+          font-size: 0.92rem;
+          padding: 0.62rem 0.75rem;
+          border-radius: 10px;
+          color: var(--ctp-subtext1);
+          background: transparent;
+        }
+
+        .nav-links a::after {
+          display: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+          color: var(--ctp-text);
+          background: var(--accent-mauve-bg);
         }
       }
 

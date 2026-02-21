@@ -1,0 +1,97 @@
+[
+  {
+    "company": "MobiFone Solutions",
+    "url": "https://mobifonesolutions.vn",
+    "role": "Technical Leader",
+    "period": "Jun 2025 — Present",
+    "description": "Leading end-to-end delivery of complex Digital Government projects at MobiFone Solutions (part of MobiFone Group). Responsible for product architecture, stakeholder management, and mentoring a team of developers across high-stakes national-scale initiatives.",
+    "highlights": [
+      "Designed and architected scalable product solutions for digital government platforms, aligned with national standards",
+      "Led cross-functional coordination between clients, product owners, and engineering teams",
+      "Mentored development team, establishing best practices, coding standards, and delivery workflows",
+      "Actively contributed to core feature development, resolving complex technical challenges for production stability"
+    ],
+    "technologies": [
+      "TypeScript",
+      "Node.js",
+      "C#",
+      ".NET",
+      "Oracle",
+      "Kafka",
+      "System Architecture"
+    ]
+  },
+  {
+    "company": "VinFast",
+    "url": "https://vinfast.vn",
+    "role": "Senior Software Engineer",
+    "period": "May 2024 — Jun 2025",
+    "description": "Worked at Vietnam's best-selling car brand as Senior Software Engineer, taking on both technical and lead roles. Built and maintained infrastructure for Green Future (Vietnam's largest car rental service) and developed internal portals for digital transformation across business units.",
+    "highlights": [
+      "Rebuilt Green Future's entire system from scratch in ~2 months while keeping business features running",
+      "Designed scalable, reliable infrastructure on AWS (EKS, EC2, RDS MySQL, Elasticache Redis)",
+      "Developed multiple internal portals for a complex role-driven enterprise ecosystem",
+      "Worked closely with business leaders and stakeholders to align solutions with evolving needs"
+    ],
+    "technologies": [
+      "TypeScript",
+      "Go",
+      "NestJS",
+      "Next.js",
+      "AWS",
+      "EKS",
+      "MySQL",
+      "Redis"
+    ]
+  },
+  {
+    "company": "EMDDI JSC",
+    "url": "https://emddi.com",
+    "role": "Full-stack Engineer → Backend Leader",
+    "period": "Aug 2020 — May 2024",
+    "description": "Core engineer at EMDDI, a ride-hailing platform powering Taxi Viet Union (200+ taxi companies, 100k+ vehicles). Led backend for GSM XanhSM — a Vingroup-backed ride-hailing app serving over 1 million trips daily across Taxi, E-scooter, and Delivery services.",
+    "highlights": [
+      "Led backend architecture for XanhSM: ~20 microservices, 1M TPM, P99 < 800ms, 99.99% uptime",
+      "Designed cross-service communication via REST, message brokers, RPC, and event queues",
+      "Built full-stack enterprise billing platform (EMDDI for Business) with admin tools for both sides",
+      "Owned backend for customer-facing apps with third-party integrations (VNPAY, Viettel Pay)"
+    ],
+    "technologies": [
+      "TypeScript",
+      "Go",
+      "NestJS",
+      "Express",
+      "Fastify",
+      "Socket.io",
+      "React",
+      "AWS",
+      "EKS",
+      "MySQL",
+      "Redis"
+    ]
+  },
+  {
+    "company": "Foobla Vietnam (Merchize)",
+    "url": "https://merchize.com",
+    "role": "Full-stack Developer",
+    "period": "Feb 2019 — Aug 2020",
+    "description": "Contributed to nearly all aspects of Merchize, an online POD/Dropshipping platform. Built customer-facing shopping experiences and seller back-office tools, plus a specialized artwork-to-product conversion tool for print-on-demand workflows.",
+    "highlights": [
+      "Developed shopping cart experiences and seller management tools end-to-end",
+      "Built artwork-to-printable-product conversion tool for streamlined POD workflow",
+      "Worked across the full stack with React/Next.js frontend and Node.js backend"
+    ],
+    "technologies": ["TypeScript", "JavaScript", "React", "Next.js", "Node.js"]
+  },
+  {
+    "company": "Admeta",
+    "role": "Front-end Developer",
+    "period": "Jun 2018 — Feb 2019",
+    "description": "Built a frontend web application for managing marketing campaigns, enabling teams to create, schedule, and monitor campaigns across multiple channels. Also developed lightweight mini web campaigns as optimized HTML static pages.",
+    "highlights": [
+      "Built campaign management dashboard with React",
+      "Developed performance-optimized static landing pages for marketing campaigns"
+    ],
+    "technologies": ["JavaScript", "React", "HTML/CSS"]
+  }
+]

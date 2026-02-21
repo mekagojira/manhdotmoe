@@ -1,0 +1,324 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Nguyễn Đức Mạnh — Senior Software Engineer",
+  description = "Personal website of Nguyễn Đức Mạnh, a senior software engineer in Hanoi, Vietnam — 7+ years building scalable systems powering millions of users.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1e1e2e" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="noise-overlay"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#top" class="nav-logo">
+          <span class="logo-bracket"
+            >{} MAX <span class="logo-bracket"></span></span
+          >
+        </a>
+        <div class="nav-links">
+          <a href="#about" data-section="about">About</a>
+          <a href="#experience" data-section="experience">Experience</a>
+          <a href="#stack" data-section="stack">Stack</a>
+          <a href="#links" data-section="links">Links</a>
+          <a href="#contact" data-section="contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner animate-on-scroll">
+        <p class="footer-sub">
+          &copy; {new Date().getFullYear()} Nguyễn Đức Mạnh. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const animTargets =
+        ".animate-on-scroll, .animate-slide-left, .animate-slide-right, .animate-scale";
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+      );
+
+      document
+        .querySelectorAll(animTargets)
+        .forEach((el) => observer.observe(el));
+
+      // Nav scroll effect
+      const nav = document.getElementById("nav")!;
+      window.addEventListener(
+        "scroll",
+        () => {
+          nav.classList.toggle("nav-scrolled", window.scrollY > 80);
+        },
+        { passive: true },
+      );
+
+      // Active nav link tracking
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll<HTMLAnchorElement>(
+        ".nav-links a[data-section]",
+      );
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute("id");
+              navLinks.forEach((link) => {
+                link.classList.toggle("active", link.dataset.section === id);
+              });
+            }
+          });
+        },
+        { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" },
+      );
+
+      sections.forEach((s) => sectionObserver.observe(s));
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          const href = (e.currentTarget as HTMLAnchorElement).getAttribute(
+            "href",
+          );
+          if (href) {
+            const target = document.querySelector(href);
+            target?.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      // Cursor glow
+      const glow = document.getElementById("cursor-glow");
+      if (glow && window.matchMedia("(pointer: fine)").matches) {
+        document.addEventListener(
+          "mousemove",
+          (e) => {
+            glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            glow.style.opacity = "1";
+          },
+          { passive: true },
+        );
+
+        document.addEventListener("mouseleave", () => {
+          glow.style.opacity = "0";
+        });
+      }
+    </script>
+
+    <style>
+      .noise-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0.015;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 256px 256px;
+      }
+
+      .cursor-glow {
+        position: fixed;
+        top: -150px;
+        left: -150px;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(203, 166, 247, 0.04) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        will-change: transform;
+      }
+
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 1.25rem 2rem;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .nav-scrolled {
+        background: rgba(17, 17, 27, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--ctp-surface0);
+        padding: 0.75rem 2rem;
+      }
+
+      .nav-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-logo {
+        font-family: var(--font-mono);
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--ctp-text);
+        letter-spacing: -0.02em;
+        transition: color 0.2s ease;
+      }
+
+      .nav-logo:hover {
+        color: var(--ctp-mauve);
+      }
+
+      .logo-bracket {
+        color: var(--ctp-mauve);
+        font-weight: 400;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.75rem;
+      }
+
+      .nav-links a {
+        font-size: 0.875rem;
+        color: var(--ctp-subtext0);
+        font-weight: 500;
+        transition: color 0.2s ease;
+        position: relative;
+        padding-bottom: 2px;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--ctp-mauve);
+        border-radius: 1px;
+        transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--ctp-text);
+      }
+
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      .nav-links a.active {
+        color: var(--ctp-mauve);
+      }
+
+      .footer {
+        border-top: 1px solid var(--ctp-surface0);
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+
+      .footer-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+      }
+
+      .footer p {
+        color: var(--ctp-overlay1);
+        font-size: 0.875rem;
+      }
+
+      .footer-sub {
+        margin-top: 0.5rem;
+        font-size: 0.8rem !important;
+        color: var(--ctp-overlay0) !important;
+      }
+
+      .heart {
+        color: var(--ctp-red);
+        display: inline-block;
+        animation: heartbeat 1.5s ease-in-out infinite;
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        14% {
+          transform: scale(1.15);
+        }
+        28% {
+          transform: scale(1);
+        }
+        42% {
+          transform: scale(1.1);
+        }
+        56% {
+          transform: scale(1);
+        }
+      }
+
+      .footer a {
+        color: var(--ctp-mauve);
+      }
+
+      @media (max-width: 640px) {
+        .nav-links {
+          gap: 1rem;
+        }
+
+        .nav-links a {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </body>
+</html>

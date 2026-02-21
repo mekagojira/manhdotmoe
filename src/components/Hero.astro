@@ -1,0 +1,578 @@
+---
+import intro from "../content/intro.json";
+---
+
+<section id="top" class="hero">
+  <div class="hero-bg">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    <div class="grid-lines"></div>
+    <div class="particles" id="particles"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge stagger" style="--i: 0">
+      <span class="badge-dot"></span>
+      {intro.availability}
+    </div>
+
+    <h1 class="hero-name stagger" style="--i: 1">
+      Greetings, I'm <span class="name-accent">{intro.name}</span> 👋
+    </h1>
+
+    <p class="hero-title stagger" style="--i: 2">
+      <span class="typewriter" id="typewriter" data-titles={JSON.stringify(intro.titles)}></span><span class="typewriter-cursor">|</span>
+    </p>
+
+    <p class="hero-tagline stagger" style="--i: 3">{intro.tagline}</p>
+
+    <div class="hero-cta stagger" style="--i: 4">
+      <a href="#contact" class="btn btn-primary">
+        <span>Get in Touch</span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+      <a href="#about" class="btn btn-ghost">
+        <span>Learn More</span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 9l6 6 6-6"></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="hero-location stagger" style="--i: 5">
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      {intro.location}
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-text">scroll</span>
+    <div class="scroll-track">
+      <div class="scroll-thumb"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const canvas = document.getElementById("particles") as HTMLDivElement;
+  if (canvas) {
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement("div");
+      particle.className = "particle";
+      particle.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        --duration: ${3 + Math.random() * 6}s;
+        --delay: ${Math.random() * 5}s;
+        --size: ${1 + Math.random() * 2}px;
+      `;
+      canvas.appendChild(particle);
+    }
+  }
+
+  // Typewriter effect
+  const tw = document.getElementById('typewriter');
+  if (tw) {
+    const titles: string[] = JSON.parse(tw.dataset.titles || '[]');
+    let titleIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    const typeSpeed = 80;
+    const deleteSpeed = 40;
+    const pauseAfterType = 2000;
+    const pauseAfterDelete = 400;
+
+    function tick() {
+      const current = titles[titleIdx];
+      if (!deleting) {
+        tw!.textContent = current.slice(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === current.length) {
+          setTimeout(() => { deleting = true; tick(); }, pauseAfterType);
+          return;
+        }
+        setTimeout(tick, typeSpeed);
+      } else {
+        tw!.textContent = current.slice(0, charIdx);
+        charIdx--;
+        if (charIdx < 0) {
+          deleting = false;
+          charIdx = 0;
+          titleIdx = (titleIdx + 1) % titles.length;
+          setTimeout(tick, pauseAfterDelete);
+          return;
+        }
+        setTimeout(tick, deleteSpeed);
+      }
+    }
+
+    setTimeout(tick, 1200);
+  }
+
+  const hero = document.querySelector(".hero") as HTMLElement;
+  if (hero) {
+    hero.addEventListener("mousemove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const orbs = hero.querySelectorAll<HTMLElement>(".gradient-orb");
+      orbs.forEach((orb, i) => {
+        const speed = (i + 1) * 15;
+        orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+      });
+    });
+  }
+</script>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+  }
+
+  .orb-1 {
+    width: 600px;
+    height: 600px;
+    background: var(--ctp-mauve);
+    top: -200px;
+    right: -200px;
+    animation: orbDrift1 14s ease-in-out infinite;
+  }
+
+  .orb-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--ctp-blue);
+    bottom: -100px;
+    left: -100px;
+    animation: orbDrift2 18s ease-in-out infinite;
+  }
+
+  .orb-3 {
+    width: 300px;
+    height: 300px;
+    background: var(--ctp-teal);
+    top: 40%;
+    left: 45%;
+    animation: orbDrift3 12s ease-in-out infinite;
+  }
+
+  @keyframes orbDrift1 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(-30px, 20px) scale(1.05);
+    }
+    50% {
+      transform: translate(-10px, -15px) scale(0.95);
+    }
+    75% {
+      transform: translate(20px, 10px) scale(1.02);
+    }
+  }
+
+  @keyframes orbDrift2 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(25px, -20px) scale(1.08);
+    }
+    66% {
+      transform: translate(-15px, 15px) scale(0.96);
+    }
+  }
+
+  @keyframes orbDrift3 {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) translate(20px, -25px) scale(1.1);
+    }
+  }
+
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--ctp-surface0) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ctp-surface0) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.12;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      black 0%,
+      transparent 70%
+    );
+    animation: gridFadeIn 2s ease both;
+  }
+
+  @keyframes gridFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.12;
+    }
+  }
+
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  :global(.particle) {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    background: var(--ctp-lavender);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat var(--duration) ease-in-out var(--delay) infinite;
+  }
+
+  @keyframes particleFloat {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0);
+    }
+    10% {
+      opacity: 0.6;
+      transform: translateY(-10px) scale(1);
+    }
+    90% {
+      opacity: 0.3;
+      transform: translateY(-80px) scale(0.8);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100px) scale(0);
+    }
+  }
+
+  /* Staggered entrance */
+  .stagger {
+    opacity: 0;
+    transform: translateY(25px);
+    animation: staggerIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 0.12s + 0.2s);
+  }
+
+  @keyframes staggerIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--ctp-surface1);
+    background: rgba(49, 50, 68, 0.4);
+    color: var(--ctp-green);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ctp-green);
+    animation: pulse-glow 2s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(166, 227, 161, 0.5);
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+    color: var(--ctp-text);
+  }
+
+  .name-accent {
+    background: linear-gradient(
+      135deg,
+      var(--ctp-mauve),
+      var(--ctp-blue),
+      var(--ctp-sapphire)
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .hero-title {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--ctp-mauve);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    min-height: 1.5em;
+  }
+
+  .typewriter {
+    display: inline;
+  }
+
+  .typewriter-cursor {
+    color: var(--ctp-mauve);
+    font-weight: 300;
+    animation: cursorBlink 0.7s step-end infinite;
+  }
+
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+    color: var(--ctp-subtext1);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-blue));
+    color: var(--ctp-crust);
+    box-shadow: 0 4px 20px rgba(203, 166, 247, 0.2);
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--ctp-blue), var(--ctp-mauve));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-primary span,
+  .btn-primary svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(203, 166, 247, 0.35);
+    color: var(--ctp-crust);
+  }
+
+  .btn-primary:hover svg {
+    transform: translateX(3px);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--ctp-surface1);
+    color: var(--ctp-subtext1);
+    background: rgba(49, 50, 68, 0.3);
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--ctp-mauve);
+    color: var(--ctp-text);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-ghost:hover svg {
+    transform: translateY(3px);
+  }
+
+  .hero-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--ctp-overlay1);
+    font-size: 0.85rem;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: staggerIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+  }
+
+  .scroll-text {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ctp-overlay0);
+  }
+
+  .scroll-track {
+    width: 1px;
+    height: 32px;
+    background: var(--ctp-surface0);
+    border-radius: 1px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .scroll-thumb {
+    width: 100%;
+    height: 8px;
+    background: var(--ctp-mauve);
+    border-radius: 1px;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0% {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(32px);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 5rem 1.5rem 3rem;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 240px;
+      justify-content: center;
+    }
+  }
+</style>

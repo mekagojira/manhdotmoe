@@ -1,0 +1,222 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import intro from '../content/intro.json';
+---
+
+<section id="about" class="section">
+  <div class="container">
+    <SectionHeading
+      title="About"
+      subtitle="A bit more about who I am and what drives me."
+    />
+
+    <div class="about-grid">
+      <div class="about-text animate-on-scroll">
+        <p>{intro.summary}</p>
+        <p>
+          Skilled in building scalable and maintainable systems with a strong command of system
+          architecture and cross-service communication. Proficient in SQL and NoSQL databases,
+          with experience optimizing data structures and queries for high performance and availability.
+          Hands-on with containerization and orchestration using Docker and Kubernetes, ensuring
+          application scalability and simplified deployments.
+        </p>
+        <p>
+          Passionate about Free/Libre and Open Source Software (FLOSS) and GNU/Linux — I believe
+          open-source drives innovation and forms the backbone of the internet. Deeply invested in
+          automating workflows and integrating AI to optimize development processes, leveraging
+          tools to streamline repetitive tasks and boost efficiency.
+        </p>
+      </div>
+
+      <div class="about-details animate-on-scroll" style="transition-delay: 0.15s">
+        <div class="detail-card">
+          <span class="detail-label">
+            <Icon name="mappin" size={13} />
+            Location
+          </span>
+          <span class="detail-value">{intro.location}</span>
+        </div>
+        <div class="detail-card">
+          <span class="detail-label">
+            <Icon name="zap" size={13} />
+            Status
+          </span>
+          <span class="detail-value status">
+            <span class="status-dot"></span>
+            {intro.availability}
+          </span>
+        </div>
+        <div class="detail-card">
+          <span class="detail-label">
+            <Icon name="target" size={13} />
+            Focus
+          </span>
+          <span class="detail-value">Full Stack &amp; System Architecture</span>
+        </div>
+        <div class="detail-card">
+          <span class="detail-label">
+            <Icon name="clock" size={13} />
+            Experience
+          </span>
+          <span class="detail-value">7+ years</span>
+        </div>
+        <div class="detail-card">
+          <span class="detail-label">
+            <Icon name="graduation" size={13} />
+            Education
+          </span>
+          <span class="detail-value edu">{intro.education}</span>
+        </div>
+
+        {intro.resumeUrl && (
+          <a href={intro.resumeUrl} class="resume-link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Download Resume
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow">
+              <path d="M7 17l9.2-9.2M17 17V7.8H7.8"></path>
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--section-gap) 2rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--ctp-subtext0);
+    font-size: 1rem;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p:first-child {
+    color: var(--ctp-subtext1);
+    font-size: 1.05rem;
+  }
+
+  .about-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .detail-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.15rem;
+    border-radius: 12px;
+    background: rgba(49, 50, 68, 0.25);
+    border: 1px solid var(--ctp-surface0);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .detail-card:hover {
+    border-color: var(--ctp-surface1);
+    transform: translateX(4px);
+  }
+
+  .detail-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ctp-overlay1);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .detail-label :global(.icon) {
+    color: var(--ctp-overlay0);
+    flex-shrink: 0;
+  }
+
+  .edu {
+    font-size: 0.78rem;
+    text-align: right;
+  }
+
+  .detail-value {
+    font-size: 0.875rem;
+    color: var(--ctp-text);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .status {
+    color: var(--ctp-green);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ctp-green);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .resume-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 12px;
+    background: rgba(203, 166, 247, 0.06);
+    border: 1px solid rgba(203, 166, 247, 0.2);
+    color: var(--ctp-mauve);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 0.25rem;
+  }
+
+  .resume-link:hover {
+    background: rgba(203, 166, 247, 0.12);
+    border-color: var(--ctp-mauve);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(203, 166, 247, 0.12);
+    color: var(--ctp-mauve);
+  }
+
+  .resume-link .arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .resume-link:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

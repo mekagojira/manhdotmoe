@@ -1,0 +1,303 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import experiences from '../content/experiences.json';
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <SectionHeading
+      title="Experience"
+      subtitle="Where I've been and what I've built along the way."
+    />
+
+    <div class="timeline">
+      {experiences.map((exp, i) => (
+        <div class="timeline-item animate-on-scroll" style={`transition-delay: ${i * 0.15}s`}>
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            {i < experiences.length - 1 && <div class="marker-line"></div>}
+          </div>
+
+          <div class="timeline-card">
+            <div class="card-shimmer"></div>
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="card-company-icon">
+                  <Icon name="building" size={16} />
+                </div>
+                <div>
+                  <h3 class="card-role">{exp.role}</h3>
+                  <p class="card-company">
+                    {exp.url ? (
+                      <a href={exp.url} target="_blank" rel="noopener noreferrer" class="company-link">
+                        {exp.company}
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path></svg>
+                      </a>
+                    ) : (
+                      exp.company
+                    )}
+                  </p>
+                </div>
+              </div>
+              <span class="card-period">
+                <Icon name="calendar" size={12} />
+                {exp.period}
+              </span>
+            </div>
+
+            <p class="card-description">{exp.description}</p>
+
+            <ul class="card-highlights">
+              {exp.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+
+            <div class="card-tech">
+              {exp.technologies.map((tech) => (
+                <span class="tech-tag">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--section-gap) 2rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .timeline {
+    position: relative;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+  }
+
+  .timeline-item + .timeline-item {
+    margin-top: 2rem;
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 0.35rem;
+  }
+
+  .marker-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ctp-mauve);
+    box-shadow: 0 0 12px rgba(203, 166, 247, 0.4);
+    flex-shrink: 0;
+  }
+
+  .marker-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--ctp-surface1), transparent);
+    margin-top: 0.5rem;
+  }
+
+  .timeline-card {
+    flex: 1;
+    background: rgba(49, 50, 68, 0.3);
+    border: 1px solid var(--ctp-surface0);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(203, 166, 247, 0.03) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    transition: none;
+  }
+
+  .timeline-card:hover .card-shimmer {
+    animation: shimmer 0.8s ease forwards;
+  }
+
+  @keyframes shimmer {
+    to { transform: translateX(100%); }
+  }
+
+  .timeline-card:hover {
+    border-color: var(--ctp-surface1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transform: translateX(4px);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-title-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .card-company-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(203, 166, 247, 0.08);
+    border: 1px solid rgba(203, 166, 247, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ctp-mauve);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: background 0.3s ease;
+  }
+
+  .timeline-card:hover .card-company-icon {
+    background: rgba(203, 166, 247, 0.14);
+  }
+
+  .card-role {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ctp-text);
+  }
+
+  .card-company {
+    font-size: 0.95rem;
+    color: var(--ctp-mauve);
+    font-weight: 500;
+    margin-top: 0.15rem;
+  }
+
+  .company-link {
+    color: var(--ctp-mauve);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.2s ease;
+  }
+
+  .company-link svg {
+    opacity: 0;
+    transform: translate(-2px, 2px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .company-link:hover {
+    color: var(--ctp-blue);
+  }
+
+  .company-link:hover svg {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  .card-period {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ctp-overlay1);
+    white-space: nowrap;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(49, 50, 68, 0.5);
+    border: 1px solid var(--ctp-surface0);
+  }
+
+  .card-period :global(.icon) {
+    opacity: 0.6;
+  }
+
+  .card-description {
+    color: var(--ctp-subtext0);
+    font-size: 0.925rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .card-highlights {
+    list-style: none;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-highlights li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--ctp-subtext1);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .card-highlights li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--ctp-teal);
+    font-weight: 600;
+  }
+
+  .card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(137, 180, 250, 0.08);
+    color: var(--ctp-blue);
+    border: 1px solid rgba(137, 180, 250, 0.15);
+  }
+
+  @media (max-width: 640px) {
+    .card-header {
+      flex-direction: column;
+    }
+
+    .card-period {
+      align-self: flex-start;
+    }
+
+    .timeline-marker {
+      display: none;
+    }
+
+    .timeline-item {
+      gap: 0;
+    }
+  }
+</style>

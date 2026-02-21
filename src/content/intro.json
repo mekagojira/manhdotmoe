@@ -1,0 +1,17 @@
+{
+  "name": "Max",
+  "fullName": "Nguyễn Đức Mạnh",
+  "title": "Senior Software Engineer",
+  "titles": [
+    "Senior Software Engineer",
+    "Technical Leader",
+    "System Architecture"
+  ],
+  "tagline": "Architecting scalable systems that power millions of users",
+  "summary": "Senior Software Engineer with over 7 years of experience in web development, specializing in full-stack solutions and system architecture. Proven expertise in designing, developing, and optimizing high-load applications — from ride-hailing platforms serving a million trips daily to digital government solutions at national scale.",
+  "avatarUrl": "/avatar.webp",
+  "resumeUrl": "/resume.pdf",
+  "location": "Hanoi, Vietnam",
+  "availability": "Open to interesting opportunities",
+  "education": "VNU University of Engineering - B.S. Computer Science"
+}

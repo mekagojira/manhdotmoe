@@ -1,0 +1,289 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import techstack from '../content/techstack.json';
+---
+
+<section id="stack" class="section">
+  <div class="container">
+    <SectionHeading
+      title="Tech Stack"
+      subtitle="Core technologies and architecture patterns I use to build scalable systems."
+    />
+
+    <!-- Primary Languages -->
+    <div class="primary-stack">
+      {techstack.primary.map((lang, i) => (
+        <div class="primary-card animate-on-scroll" style={`transition-delay: ${i * 0.1}s`}>
+          <div class="primary-card-shimmer"></div>
+          <div class="primary-header">
+            <div class="primary-icon">
+              <Icon name={lang.icon} size={22} />
+            </div>
+            <h3 class="primary-name">{lang.name}</h3>
+          </div>
+          <p class="primary-desc">{lang.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- System Architecture -->
+    <div class="arch-section animate-on-scroll" style="transition-delay: 0.1s">
+      <h3 class="subsection-title">
+        <Icon name="boxes" size={18} />
+        System Architecture
+      </h3>
+      <div class="arch-tags">
+        {techstack.architecture.map((item) => (
+          <span class="arch-tag">
+            <Icon name={item.icon} size={13} />
+            {item.name}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Other Categories -->
+    <div class="cat-grid">
+      {techstack.categories.map((cat, i) => (
+        <div class="cat-card animate-on-scroll" style={`transition-delay: ${i * 0.08}s`}>
+          <h4 class="cat-name">
+            <Icon name={cat.icon} size={14} />
+            {cat.name}
+          </h4>
+          <div class="cat-items">
+            {cat.items.map((item) => (
+              <span class="cat-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--section-gap) 2rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  /* Primary Languages */
+  .primary-stack {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .primary-card {
+    position: relative;
+    overflow: hidden;
+    background: rgba(49, 50, 68, 0.3);
+    border: 1px solid var(--ctp-surface0);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .primary-card-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(203, 166, 247, 0.04) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+  }
+
+  .primary-card:hover .primary-card-shimmer {
+    animation: shimmer 0.8s ease forwards;
+  }
+
+  @keyframes shimmer {
+    to { transform: translateX(100%); }
+  }
+
+  .primary-card:hover {
+    border-color: var(--ctp-surface1);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .primary-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .primary-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(203, 166, 247, 0.08);
+    border: 1px solid rgba(203, 166, 247, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ctp-mauve);
+    flex-shrink: 0;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .primary-card:hover .primary-icon {
+    background: rgba(203, 166, 247, 0.14);
+    transform: scale(1.05);
+  }
+
+  .primary-name {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ctp-mauve);
+  }
+
+  .primary-desc {
+    font-size: 0.85rem;
+    color: var(--ctp-subtext0);
+    line-height: 1.7;
+  }
+
+  /* Architecture Section */
+  .arch-section {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border-radius: 16px;
+    background: rgba(49, 50, 68, 0.15);
+    border: 1px solid var(--ctp-surface0);
+  }
+
+  .subsection-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ctp-text);
+    margin-bottom: 1.25rem;
+  }
+
+  .subsection-title :global(.icon) {
+    color: var(--ctp-teal);
+  }
+
+  .arch-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .arch-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 8px;
+    background: rgba(148, 226, 213, 0.06);
+    color: var(--ctp-teal);
+    border: 1px solid rgba(148, 226, 213, 0.15);
+    transition: all 0.25s ease;
+  }
+
+  .arch-tag :global(.icon) {
+    width: 13px;
+    height: 13px;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .arch-tag:hover {
+    background: rgba(148, 226, 213, 0.12);
+    border-color: rgba(148, 226, 213, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .arch-tag:hover :global(.icon) {
+    opacity: 1;
+  }
+
+  /* Category Grid */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .cat-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+    background: rgba(49, 50, 68, 0.2);
+    border: 1px solid var(--ctp-surface0);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .cat-card:hover {
+    border-color: var(--ctp-surface1);
+    transform: translateY(-2px);
+  }
+
+  .cat-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ctp-overlay2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.85rem;
+  }
+
+  .cat-name :global(.icon) {
+    color: var(--ctp-overlay1);
+    opacity: 0.7;
+  }
+
+  .cat-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .cat-tag {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    background: rgba(137, 180, 250, 0.06);
+    color: var(--ctp-blue);
+    border: 1px solid rgba(137, 180, 250, 0.12);
+    transition: all 0.25s ease;
+  }
+
+  .cat-tag:hover {
+    background: rgba(137, 180, 250, 0.12);
+    border-color: rgba(137, 180, 250, 0.25);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .primary-stack {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cat-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

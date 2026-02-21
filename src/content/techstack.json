@@ -1,0 +1,88 @@
+{
+  "primary": [
+    {
+      "name": "Node.js / TypeScript",
+      "icon": "nodejs",
+      "description": "Primary language for 7+ years. Built high-load microservices (1M+ TPM), real-time systems with Socket.io, and full-stack apps with NestJS, Express, Fastify, and Next.js."
+    },
+    {
+      "name": "Golang",
+      "icon": "golang",
+      "description": "Backend services and high-performance APIs. Experienced with Gin, standard HTTP, and building concurrent, low-latency systems for ride-hailing and enterprise platforms."
+    },
+    {
+      "name": "C# / .NET",
+      "icon": "csharp",
+      "description": "Enterprise application development with ASP.NET Core. Building scalable web APIs and backend services for government and enterprise solutions."
+    }
+  ],
+  "architecture": [
+    { "name": "Microservices Architecture", "icon": "boxes" },
+    { "name": "Event-Driven Systems", "icon": "zap" },
+    { "name": "Message Brokers / Queues", "icon": "mail" },
+    { "name": "REST / gRPC / RPC", "icon": "arrows" },
+    { "name": "Domain-Driven Design", "icon": "layers" },
+    { "name": "CQRS & Event Sourcing", "icon": "split" },
+    { "name": "High Availability", "icon": "shield" },
+    { "name": "Horizontal Scaling", "icon": "scale" },
+    { "name": "Load Balancing", "icon": "balance" },
+    { "name": "Service Mesh", "icon": "network" }
+  ],
+  "categories": [
+    {
+      "name": "Frontend",
+      "icon": "layout",
+      "items": ["React", "Next.js", "Astro", "HTML/CSS"]
+    },
+    {
+      "name": "Backend Frameworks",
+      "icon": "server",
+      "items": [
+        "NestJS",
+        "Express",
+        "Fastify",
+        "Gin",
+        "ASP.NET Core",
+        "Socket.io"
+      ]
+    },
+    {
+      "name": "Databases",
+      "icon": "database",
+      "items": [
+        "MySQL / RDS",
+        "PostgreSQL",
+        "Oracle",
+        "Redis / Elasticache",
+        "MongoDB",
+        "Elasticsearch"
+      ]
+    },
+    {
+      "name": "Infrastructure",
+      "icon": "cloud",
+      "items": [
+        "AWS",
+        "Docker",
+        "Kubernetes / EKS",
+        "EC2",
+        "Kafka",
+        "CI/CD",
+        "Terraform",
+        "Nginx"
+      ]
+    },
+    {
+      "name": "Tools & Practices",
+      "icon": "terminal",
+      "items": [
+        "Git",
+        "GNU/Linux",
+        "System Design",
+        "Agile/Scrum",
+        "TDD",
+        "AI-assisted Dev"
+      ]
+    }
+  ]
+}

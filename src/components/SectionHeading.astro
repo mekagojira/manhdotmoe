@@ -1,0 +1,73 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+}
+
+const { title, subtitle, align = 'left' } = Astro.props;
+---
+
+<div class:list={['section-heading animate-on-scroll', `align-${align}`]}>
+  <h2 class="section-title">
+    <span class="title-accent">//</span>
+    <span class="title-text">{title}</span>
+    <span class="title-line"></span>
+  </h2>
+  {subtitle && <p class="section-subtitle">{subtitle}</p>}
+</div>
+
+<style>
+  .section-heading {
+    margin-bottom: 3rem;
+  }
+
+  .align-center {
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ctp-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .align-center .section-title {
+    justify-content: center;
+  }
+
+  .title-accent {
+    font-family: var(--font-mono);
+    color: var(--ctp-mauve);
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  .title-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--ctp-surface1), transparent);
+    max-width: 200px;
+  }
+
+  .align-center .title-line {
+    display: none;
+  }
+
+  .section-subtitle {
+    color: var(--ctp-subtext0);
+    font-size: 1.05rem;
+    margin-top: 0.75rem;
+    max-width: 500px;
+    line-height: 1.7;
+  }
+
+  .align-center .section-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

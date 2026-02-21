@@ -1,75 +1,76 @@
 {
-  "subtitle": "Designing distributed systems that remain stable under pressure and evolve with business growth.",
-  "summary": "I design service-oriented platforms with clear boundaries, secure-by-design controls, and performance-first architecture. I also guide teams to implement the architecture consistently, so systems stay reliable, scalable, and easy to evolve.",
+  "subtitle": "Defining architecture strategy for complex, high-load platforms with strict reliability and governance requirements.",
+  "summary": "As lead architecture authority, I shape system blueprints, technology direction, and execution standards for mission-critical software. The objective is to balance scalability, security, delivery velocity, and long-term operability across complex ecosystems.",
   "domains": [
     {
-      "title": "Microservices Design",
+      "title": "Platform & Service Topology",
       "icon": "boxes",
-      "description": "Define service boundaries around domain ownership to reduce coupling and improve team autonomy.",
+      "description": "Design platform topology and service boundaries that align domain ownership, integration complexity, and organizational scale.",
       "points": [
-        "Domain-driven service boundaries",
-        "API contracts and versioning strategy",
-        "Operational ownership per service"
+        "Domain-aligned module and service partitioning",
+        "Contract-first API and interoperability strategy",
+        "Ownership model for multi-team execution"
       ]
     },
     {
-      "title": "CQRS & Event-Driven",
+      "title": "Distributed Flow Architecture",
       "icon": "split",
-      "description": "Use command/query separation and asynchronous events for scalable write/read flows.",
+      "description": "Define command-query and event-driven interaction models for scalable, decoupled, and evolvable workflows.",
       "points": [
-        "Command and query model separation",
-        "Event choreography for cross-service workflows",
-        "Reliable messaging and eventual consistency"
+        "CQRS strategy for read/write scalability",
+        "Event choreography and orchestration governance",
+        "Consistency boundaries and reliability guarantees"
       ]
     },
     {
-      "title": "Distributed Reliability",
-      "icon": "network",
-      "description": "Engineer resilient communication patterns that tolerate failure across distributed components.",
+      "title": "Data Architecture & Persistence",
+      "icon": "database",
+      "description": "Design SQL and NoSQL persistence strategy for integrity, durability, and performance under sustained high-load conditions.",
       "points": [
-        "Timeout, retry, and circuit-breaker patterns",
-        "Idempotency and failure recovery flows",
-        "Observability-driven incident reduction"
+        "Polyglot persistence across relational and distributed NoSQL domains",
+        "Durability, replication, and consistency trade-off governance",
+        "High-throughput data modeling and query efficiency patterns"
       ]
     },
     {
-      "title": "High-Load Performance",
+      "title": "High-Load Performance Strategy",
       "icon": "zap",
-      "description": "Continuously identify bottlenecks and optimize throughput, latency, and resource efficiency.",
+      "description": "Lead capacity and performance strategy for high-pressure workloads, with measurable control over latency and throughput.",
       "points": [
-        "Capacity planning and load profiling",
-        "Hot-path optimization and caching strategy",
-        "P99 latency and throughput tuning"
+        "Capacity planning for extreme concurrency scenarios",
+        "Bottleneck identification across service and data paths",
+        "Performance governance using p95/p99 objectives"
       ]
     },
     {
-      "title": "Secure System Architecture",
+      "title": "Security & Compliance Architecture",
       "icon": "shield",
-      "description": "Embed security controls into architecture decisions from day one, not as a late-stage add-on.",
+      "description": "Embed security and compliance controls into architecture decisions from inception through production lifecycle.",
       "points": [
-        "Defense-in-depth across services and network layers",
-        "Identity, access control, and secret management",
-        "Security reviews and risk-based design decisions"
+        "Defense-in-depth architecture and trust boundaries",
+        "Identity, access, and secret governance model",
+        "Design alignment with ISO/TCVN-grade controls"
       ]
     },
     {
-      "title": "Architecture Leadership",
+      "title": "Architecture Leadership & Governance",
       "icon": "user",
-      "description": "Lead teams to execute architecture with shared standards, clear ownership, and practical governance.",
+      "description": "Drive architecture adoption at scale through standards, governance, and technical leadership across teams.",
       "points": [
-        "Define engineering guidelines and architecture standards",
-        "Mentor teammates through design reviews and trade-offs",
-        "Align implementation plans with architecture roadmap"
+        "Enterprise architecture principles and standards",
+        "Cross-team design review and decision governance",
+        "Roadmap alignment from architecture to execution"
       ]
     }
   ],
   "patterns": [
-    { "name": "Microservices", "icon": "boxes" },
+    { "name": "Service Topology", "icon": "boxes" },
     { "name": "CQRS", "icon": "split" },
     { "name": "Event-Driven", "icon": "zap" },
     { "name": "gRPC / REST", "icon": "arrows" },
-    { "name": "Horizontal Scaling", "icon": "scale" },
-    { "name": "Resilience Patterns", "icon": "shield" },
+    { "name": "High-Concurrency Scaling", "icon": "scale" },
+    { "name": "SQL + NoSQL Persistence", "icon": "database" },
+    { "name": "Resilience Patterns", "icon": "network" },
     { "name": "Secure by Design", "icon": "shield" },
     { "name": "Architecture Governance", "icon": "user" }
   ]

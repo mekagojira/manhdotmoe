@@ -422,16 +422,7 @@ import Icon from "../components/Icon.astro";
             </button>
           </div>
         </div>
-        <div class="yt-content" id="yt-content">
-          <div class="yt-welcome">
-            <svg viewBox="0 0 28 20" class="yt-welcome-icon" aria-hidden="true">
-              <rect rx="4" width="28" height="20" fill="#FF0000"/>
-              <polygon points="11,5 11,15 20,10" fill="#fff"/>
-            </svg>
-            <p class="yt-welcome-title">Search for a video</p>
-            <p class="yt-welcome-sub">Type a query above to find and watch YouTube videos</p>
-          </div>
-        </div>
+        <div class="yt-content" id="yt-content"></div>
       </div>
     </section>
   </main>
@@ -809,70 +800,141 @@ import Icon from "../components/Icon.astro";
   const ytSearch = document.getElementById("yt-search") as HTMLInputElement | null;
   const ytSearchBtn = document.getElementById("yt-search-btn");
   const ytContent = document.getElementById("yt-content");
-  const YT_API_KEY = "";
+  let ytLastQuery = "";
 
-  const ytDoSearch = async () => {
-    const q = ytSearch?.value.trim();
-    if (!q || !ytContent) return;
-
-    ytContent.innerHTML = `<div class="yt-loading">Searching...</div>`;
-
-    try {
-      const res = await fetch(
-        `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`,
-      );
-      const html = await res.text();
-
-      const ids: string[] = [];
-      const re = /\/watch\?v=([\w-]{11})/g;
-      let m: RegExpExecArray | null;
-      while ((m = re.exec(html)) !== null) {
-        if (!ids.includes(m[1])) ids.push(m[1]);
-        if (ids.length >= 12) break;
-      }
-
-      if (ids.length === 0) {
-        ytContent.innerHTML = `<div class="yt-loading">No results found</div>`;
-        return;
-      }
-
-      ytContent.innerHTML = `<div class="yt-grid">${ids
-        .map(
-          (id) =>
-            `<button class="yt-thumb" data-yt-id="${id}">
-              <img src="https://img.youtube.com/vi/${id}/mqdefault.jpg" alt="" loading="lazy" />
-              <span class="yt-play-overlay"><svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="rgba(0,0,0,0.6)"/><polygon points="14,10 14,26 26,18" fill="#fff"/></svg></span>
-            </button>`,
-        )
-        .join("")}</div>`;
-
-      ytContent.querySelectorAll<HTMLButtonElement>("[data-yt-id]").forEach((t) => {
-        t.addEventListener("click", () => {
-          const vid = t.dataset.ytId;
-          if (!vid) return;
-          ytContent.innerHTML = `<div class="yt-player-wrap">
-            <button class="yt-back-btn" id="yt-back-to-grid" type="button">&larr; Back to results</button>
-            <div class="yt-player">
-              <iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" title="YouTube video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-          </div>`;
-          document.getElementById("yt-back-to-grid")?.addEventListener("click", () => {
-            ytDoSearch();
-          });
-        });
-      });
-    } catch {
-      ytContent.innerHTML = `<div class="yt-grid"></div>`;
-      const fallbackUrl = `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(q)}`;
-      ytContent.innerHTML = `<div class="yt-player-wrap">
-        <div class="yt-player">
-          <iframe src="${fallbackUrl}" title="YouTube search" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>`;
+  const ytParseId = (input: string): string | null => {
+    const patterns = [
+      /(?:youtube\.com\/watch\?.*v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/|youtube\.com\/shorts\/)([\w-]{11})/,
+      /^([\w-]{11})$/,
+    ];
+    for (const p of patterns) {
+      const m = input.match(p);
+      if (m) return m[1];
     }
+    return null;
   };
 
-  ytSearchBtn?.addEventListener("click", ytDoSearch);
+  const ytPlayVideo = (id: string) => {
+    if (!ytContent) return;
+    ytContent.innerHTML = `<div class="yt-player-wrap">
+      <button class="yt-back-btn" id="yt-back-to-results" type="button">\u2190 Back</button>
+      <div class="yt-player">
+        <iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>`;
+    if (ytSearch) ytSearch.value = `https://youtube.com/watch?v=${id}`;
+    document.getElementById("yt-back-to-results")?.addEventListener("click", () => {
+      if (ytLastQuery) ytDoSearch(ytLastQuery);
+      else ytShowWelcome();
+    });
+  };
+
+  const ytRenderGrid = (items: { id: string; title: string }[]) => {
+    if (!ytContent) return;
+    ytContent.innerHTML = `<div class="yt-grid">${items
+      .map(
+        (v) =>
+          `<button class="yt-thumb" data-yt-id="${v.id}" title="${v.title.replace(/"/g, "&quot;")}">
+            <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.title.replace(/"/g, "&quot;")}" loading="lazy" />
+            <span class="yt-play-overlay"><svg width="28" height="28" viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="rgba(0,0,0,0.55)"/><polygon points="15,11 15,25 25,18" fill="#fff"/></svg></span>
+            <span class="yt-thumb-title">${v.title}</span>
+          </button>`,
+      )
+      .join("")}</div>`;
+
+    ytContent.querySelectorAll<HTMLButtonElement>("[data-yt-id]").forEach((t) => {
+      t.addEventListener("click", () => {
+        const vid = t.dataset.ytId;
+        if (vid) ytPlayVideo(vid);
+      });
+    });
+  };
+
+  const pipedInstances = [
+    "https://pipedapi.kavin.rocks",
+    "https://pipedapi.adminforge.de",
+    "https://api.piped.yt",
+  ];
+
+  const ytDoSearch = async (query?: string) => {
+    const q = query || ytSearch?.value.trim();
+    if (!q || !ytContent) return;
+
+    const videoId = ytParseId(q);
+    if (videoId) {
+      ytPlayVideo(videoId);
+      return;
+    }
+
+    ytLastQuery = q;
+    ytContent.innerHTML = `<div class="yt-loading">Searching for "${q}"...</div>`;
+
+    for (const api of pipedInstances) {
+      try {
+        const res = await fetch(
+          `${api}/search?q=${encodeURIComponent(q)}&filter=videos`,
+        );
+        if (!res.ok) continue;
+        const data = await res.json();
+        const items = (data.items || [])
+          .filter((v: any) => v.url && v.title)
+          .slice(0, 12)
+          .map((v: any) => ({
+            id: v.url.replace("/watch?v=", ""),
+            title: v.title,
+          }));
+        if (items.length > 0) {
+          ytRenderGrid(items);
+          return;
+        }
+      } catch {
+        continue;
+      }
+    }
+
+    ytContent.innerHTML = `<div class="yt-loading">
+      <div style="text-align:center">
+        <p>Could not fetch results. Try pasting a YouTube URL directly.</p>
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}" target="_blank" rel="noopener" style="color:var(--ctp-blue)">Open YouTube search in new tab \u2197</a>
+      </div>
+    </div>`;
+  };
+
+  const ytShowWelcome = () => {
+    if (!ytContent) return;
+    const featured = [
+      { id: "dQw4w9WgXcQ", title: "Rick Astley - Never Gonna Give You Up" },
+      { id: "jNQXAC9IVRw", title: "Me at the zoo - First YouTube video" },
+      { id: "8aGhZQkoFbQ", title: "What is the Internet?" },
+      { id: "PkZNo7MFNFg", title: "Learn JavaScript - Full Course" },
+      { id: "rfscVS0vtbw", title: "Learn Python - Full Course" },
+      { id: "HXV3zeQKqGY", title: "CSS Crash Course" },
+    ];
+    ytContent.innerHTML = `<div class="yt-welcome">
+      <svg viewBox="0 0 28 20" class="yt-welcome-icon" aria-hidden="true"><rect rx="4" width="28" height="20" fill="#FF0000"/><polygon points="11,5 11,15 20,10" fill="#fff"/></svg>
+      <p class="yt-welcome-title">YouTube</p>
+      <p class="yt-welcome-sub">Search or paste a YouTube URL to watch</p>
+    </div><div class="yt-grid yt-featured-grid">${featured
+      .map(
+        (v) =>
+          `<button class="yt-thumb" data-yt-id="${v.id}" title="${v.title}">
+            <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.title}" loading="lazy" />
+            <span class="yt-play-overlay"><svg width="28" height="28" viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="rgba(0,0,0,0.55)"/><polygon points="15,11 15,25 25,18" fill="#fff"/></svg></span>
+            <span class="yt-thumb-title">${v.title}</span>
+          </button>`,
+      )
+      .join("")}</div>`;
+    ytContent.querySelectorAll<HTMLButtonElement>("[data-yt-id]").forEach((t) => {
+      t.addEventListener("click", () => {
+        const vid = t.dataset.ytId;
+        if (vid) ytPlayVideo(vid);
+      });
+    });
+  };
+
+  ytShowWelcome();
+
+  ytSearchBtn?.addEventListener("click", () => ytDoSearch());
   ytSearch?.addEventListener("keydown", (e) => {
     if (e.key === "Enter") ytDoSearch();
   });
@@ -1526,8 +1588,8 @@ import Icon from "../components/Icon.astro";
 
   /* YouTube app */
   .yt-shell {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr;
     overflow: hidden;
     background: var(--ctp-mantle);
   }
@@ -1535,28 +1597,28 @@ import Icon from "../components/Icon.astro";
   .yt-toolbar {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    gap: 0.6rem;
+    padding: 0.4rem 0.65rem;
     border-bottom: 1px solid var(--surface-border);
     background: color-mix(in srgb, var(--surface-card) 80%, transparent);
-    flex-shrink: 0;
   }
 
   .yt-logo {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
     flex-shrink: 0;
   }
 
   .yt-logo-icon {
-    width: 28px;
-    height: 20px;
+    width: 24px;
+    height: 17px;
+    flex-shrink: 0;
   }
 
   .yt-logo-text {
     font-family: var(--os-font);
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 700;
     color: var(--ctp-text);
     letter-spacing: -0.02em;
@@ -1565,20 +1627,21 @@ import Icon from "../components/Icon.astro";
   .yt-search-wrap {
     flex: 1;
     display: flex;
-    max-width: 480px;
+    max-width: 420px;
+    margin: 0 auto;
   }
 
   .yt-search-input {
     flex: 1;
-    height: 2rem;
+    height: 1.85rem;
     border: 1px solid var(--surface-border);
     border-right: none;
-    border-radius: 20px 0 0 20px;
+    border-radius: 18px 0 0 18px;
     background: var(--ctp-crust);
     color: var(--ctp-text);
-    padding: 0 0.75rem;
+    padding: 0 0.7rem;
     font-family: var(--os-font);
-    font-size: 0.84rem;
+    font-size: 0.8rem;
     outline: none;
   }
 
@@ -1587,10 +1650,10 @@ import Icon from "../components/Icon.astro";
   }
 
   .yt-search-btn {
-    height: 2rem;
-    width: 2.5rem;
+    height: 1.85rem;
+    width: 2.2rem;
     border: 1px solid var(--surface-border);
-    border-radius: 0 20px 20px 0;
+    border-radius: 0 18px 18px 0;
     background: var(--ctp-surface0);
     color: var(--ctp-subtext0);
     display: grid;
@@ -1603,32 +1666,29 @@ import Icon from "../components/Icon.astro";
   }
 
   .yt-content {
-    flex: 1;
     overflow-y: auto;
-    padding: 0;
+    overflow-x: hidden;
   }
 
   .yt-welcome {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    height: 100%;
-    padding: 2rem;
+    gap: 0.25rem;
+    padding: 1.5rem 1rem 0.75rem;
     text-align: center;
   }
 
   .yt-welcome-icon {
-    width: 56px;
-    height: 40px;
-    opacity: 0.6;
-    margin-bottom: 0.5rem;
+    width: 40px;
+    height: 28px;
+    opacity: 0.5;
+    margin-bottom: 0.25rem;
   }
 
   .yt-welcome-title {
     font-family: var(--os-font);
-    font-size: 1.1rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--ctp-text);
     margin: 0;
@@ -1636,38 +1696,44 @@ import Icon from "../components/Icon.astro";
 
   .yt-welcome-sub {
     font-family: var(--os-font);
-    font-size: 0.82rem;
+    font-size: 0.76rem;
     color: var(--ctp-subtext0);
-    margin: 0;
+    margin: 0 0 0.25rem;
   }
 
   .yt-loading {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    min-height: 200px;
     font-family: var(--os-font);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--ctp-subtext0);
     padding: 2rem;
   }
 
   .yt-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.75rem;
-    padding: 0.75rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    padding: 0.6rem;
+  }
+
+  .yt-featured-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 1rem 1rem;
   }
 
   .yt-thumb {
     position: relative;
     border: none;
-    background: none;
+    background: var(--ctp-crust);
     padding: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
     aspect-ratio: 16 / 9;
+    display: block;
   }
 
   .yt-thumb img {
@@ -1675,12 +1741,11 @@ import Icon from "../components/Icon.astro";
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 10px;
     transition: transform 0.15s ease;
   }
 
   .yt-thumb:hover img {
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
 
   .yt-play-overlay {
@@ -1690,10 +1755,30 @@ import Icon from "../components/Icon.astro";
     place-items: center;
     opacity: 0;
     transition: opacity 0.15s ease;
+    background: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
   }
 
   .yt-thumb:hover .yt-play-overlay {
     opacity: 1;
+  }
+
+  .yt-thumb-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.2rem 0.45rem 0.3rem;
+    font-family: var(--os-font);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: #fff;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
   }
 
   .yt-player-wrap {
@@ -1708,11 +1793,10 @@ import Icon from "../components/Icon.astro";
     background: transparent;
     color: var(--ctp-blue);
     font-family: var(--os-font);
-    font-size: 0.82rem;
-    padding: 0.5rem 0.75rem;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.65rem;
     cursor: pointer;
     text-align: left;
-    flex-shrink: 0;
   }
 
   .yt-back-btn:hover {

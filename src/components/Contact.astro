@@ -13,7 +13,10 @@ const socials = (contact.socials ?? []) as SocialItem[];
 
 <section id="contact" class="section">
   <div class="container">
-    <SectionHeading title="Contact" subtitle="Open to meaningful engineering work." />
+    <SectionHeading
+      title="Contact"
+      subtitle="Open to meaningful engineering work."
+    />
 
     <div class="contact-panel animate-on-scroll">
       <h3>{contact.headline}</h3>
@@ -22,9 +25,6 @@ const socials = (contact.socials ?? []) as SocialItem[];
       <div class="contact-actions">
         <a href={`mailto:${contact.email}`} class="contact-btn primary">
           Email me
-        </a>
-        <a href={`tel:${contact.phone.replace(/\s+/g, "")}`} class="contact-btn">
-          {contact.phone}
         </a>
       </div>
 
